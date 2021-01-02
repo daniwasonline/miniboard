@@ -7,7 +7,7 @@ A program written in Node.js using the Electron framework to display the weather
 You can download, configure, and run this in just a few steps.
 
 #### Requirements
-- [Node.js](https://nodejs.org) ([Linux installation with NVM](https://github.com/nvm-sh/nvm)
+- [Node.js](https://nodejs.org) ([Linux installation with NVM](https://github.com/nvm-sh/nvm))
 - [Electron](https://electronjs.org)
 - An [OpenWeatherMap](https://openweathermap.org) API key
 - (Optional) A [Last.fm API key](https://www.last.fm/api/account/create), for getting your Last.fm scrobbles (Spotify included)!
