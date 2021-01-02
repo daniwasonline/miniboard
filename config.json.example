@@ -1,18 +1,23 @@
 {
     "key": "your key here",
     "placeid": "your weather id here",
+    "//OPENWEATHERMAP": "1. Get a key from https://openweathermap.org/. 2. Get a place ID using the search on OWM.org. 3. Paste them into the fields.",
     "units": 0,
     "//UNITS": "Use 0 for Celsius and 1 for Fahrenheit",
     "decor": {
         "background": "https://wallpaperaccess.com/full/869923.gif",
         "name": "Person",
-        "birthday": "",
+        "birthday": "1 January",
         "//BIRTHDAY": "BIRTHDAY MUST BE IN DD/MM FORMAT (example: 9 February)",
         "12hr": false
     },
     "media": {
         "youtube": "https://www.youtube.com/",
         "youtube_tv": true,
-        "youtube_tv_link": "https://www.youtube.com/tv"
+        "youtube_tv_link": "https://www.youtube.com/tv",
+        "lastfm": {
+            "key": "",
+            "username": ""
+        }  
     }
 }

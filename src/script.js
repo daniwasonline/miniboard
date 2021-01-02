@@ -1,4 +1,11 @@
 var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const hoursOfDay = {
+    "morning": [5, 6, 7, 8, 9, 10, 11],
+    "noon": [12],
+    "afternoon": [13, 14, 15, 16, 17],
+    "evening": [18, 19, 20, 21],
+    "night": [22, 23, 0, 1, 2, 3, 4]
+};
 const configuration = window.bridge.information.getConfig()
 const name = configuration.decor.name
 
@@ -25,13 +32,6 @@ function getGreeting() {
     const month = monthNames[dateObj.getMonth()];
     let day = String(dateObj.getDate());
     const birthday = configuration.decor.birthday.toLowerCase().split(" ")
-    const hoursOfDay = {
-        "morning": [5, 6, 7, 8, 9, 10, 11],
-        "noon": [12],
-        "afternoon": [13, 14, 15, 16, 17],
-        "evening": [18, 19, 20, 21],
-        "night": [22, 23, 0, 1, 2, 3, 4]
-    };
 
     const greetings = {
         "morning": [`Good morning, ${name}!`, `Rise and shine, ${name}!`, `How's your morning ${name}?`, `Did you have a nice sleep ${name}?`, `When's breakfast, ${name}?`],
@@ -97,7 +97,11 @@ function getBirthday() {
     }
 };
 
-function weather() {
+async function track() {
+    const track = await window.bridge.media.getNewestTrack()
+};
+
+async function weather() {
     let units = {}
     if (configuration.units == 0 || configuration.units == undefined) {
         units.fc = "C"
@@ -108,13 +112,53 @@ function weather() {
         units.unit = "imperial"
     }
     fetch(`https://api.openweathermap.org/data/2.5/weather?id=${configuration.placeid}&appid=${configuration.key}&units=${units.unit}`)  
-    .then(function(resp) { return resp.json() }) // Convert data to json
+    .then(function(resp) { return resp.json() })
     .then(function(data) {
+        const icon = document.getElementsByClassName("weather-icon")[0]
         document.getElementById("place").innerText = `${data.name}, ${data.sys.country}`
         var temperature = Math.round(parseFloat(data.main.temp));
-        var conditions = capitalizeFirstLetter(data.weather[0].description);
+        var conditions = data.weather[0].description
         document.getElementById('temp').innerHTML = temperature + `&deg;${units.fc}`;
-        document.getElementById('weatherdesc').innerHTML = conditions;
+        document.getElementById('weatherdesc').innerHTML = capitalizeFirstLetter(conditions);
+
+
+
+        if (hoursOfDay.morning.includes(new Date().getHours())) {
+            if (conditions == "clear sky") icon.src = "./assets/sunrise.png"
+            if (conditions.includes("clouds")) icon.src = "./assets/suncloud.png"
+            if (conditions.includes("rain")) icon.src = "./assets/rain.png"
+            if (conditions == "snow") icon.src = "./assets/snow.png"
+            if (conditions == "thunderstorm") icon.src = "./assets/storm.png"
+            if (conditions == "mist") icon.src = "./assets/mist.png"
+        } if (hoursOfDay.noon.includes(new Date().getHours())) {
+            if (conditions == "clear sky") icon.src = "./assets/sun.png"
+            if (conditions.includes("clouds")) icon.src = "./assets/suncloud.png"
+            if (conditions.includes("rain")) icon.src = "./assets/rain.png"
+            if (conditions == "snow") icon.src = "./assets/snow.png"
+            if (conditions == "thunderstorm") icon.src = "./assets/storm.png"
+            if (conditions == "mist") icon.src = "./assets/mist.png"
+        } if (hoursOfDay.afternoon.includes(new Date().getHours())) {
+            if (conditions == "clear sky") icon.src = "./assets/sun.png"
+            if (conditions.includes("clouds")) icon.src = "./assets/suncloud.png"
+            if (conditions.includes("rain")) icon.src = "./assets/rain.png"
+            if (conditions == "snow") icon.src = "./assets/snow.png"
+            if (conditions == "thunderstorm") icon.src = "./assets/storm.png"
+            if (conditions == "mist") icon.src = "./assets/mist.png"
+        } if (hoursOfDay.evening.includes(new Date().getHours())) {
+            if (conditions == "clear sky") icon.src = "./assets/sunset.png"
+            if (conditions.includes("clouds")) icon.src = "./assets/suncloud.png"
+            if (conditions.includes("rain")) icon.src = "./assets/rain.png"
+            if (conditions == "snow") icon.src = "./assets/snow.png"
+            if (conditions == "thunderstorm") icon.src = "./assets/storm.png"
+            if (conditions == "mist") icon.src = "./assets/mist.png"
+        } if (hoursOfDay.night.includes(new Date().getHours())) {
+            if (conditions == "clear sky") icon.src = "./assets/moon.png"
+            if (conditions.includes("clouds")) icon.src = "./assets/mooncloud.png"
+            if (conditions.includes("rain")) icon.src = "./assets/rain.png"
+            if (conditions == "snow") icon.src = "./assets/snow.png"
+            if (conditions == "thunderstorm") icon.src = "./assets/storm.png"
+            if (conditions == "mist") icon.src = "./assets/mist.png"
+        }
     })
     .catch(e => console.log(e));
 }
