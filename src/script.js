@@ -1,5 +1,6 @@
 var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const configuration = window.bridge.information.getConfig()
+const name = configuration.decor.name
 
 function pickTz() {
     if (configuration.decor["12hr"] == true) {
@@ -19,7 +20,11 @@ function getTime() {
 }
 
 function getGreeting() {
-    const name = configuration.decor.name
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const dateObj = new Date();
+    const month = monthNames[dateObj.getMonth()];
+    let day = String(dateObj.getDate());
+    const birthday = configuration.decor.birthday.toLowerCase().split(" ")
     const hoursOfDay = {
         "morning": [5, 6, 7, 8, 9, 10, 11],
         "noon": [12],
@@ -47,20 +52,50 @@ function getGreeting() {
     } if (hoursOfDay.night.includes(new Date().getHours())) {
         document.getElementById("greeting").innerText = greetings.night[Math.floor(Math.random() * greetings.night.length)];
     }
-}
+
+    if (birthday[0] == day && birthday[1] == month.toLowerCase()) {
+        document.getElementById("greeting").innerHTML = `Happy birthday, ${name}! &#127881;`
+    }
+};
 
 function getDDMMYY() {
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const birthday = configuration.decor.birthday.toLowerCase().split(" ");
     const dateObj = new Date();
     const month = monthNames[dateObj.getMonth()];
     let day = String(dateObj.getDate());
     const year = dateObj.getFullYear();
     const dayforweek = days[dateObj.getDay()];
     output = `${dayforweek}, ${day} ${month} ${year}`;
-    if (birthday[0] == day && birthday[1] == month.toLowerCase()) confetti.start(5000)
     document.getElementById("daynamemid").innerHTML = output;
 }
+
+function findHolidays() {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const dateObj = new Date();
+    const birthday = configuration.decor.birthday.toLowerCase().split(" ")
+    const month = monthNames[dateObj.getMonth()];
+    let day = String(dateObj.getDate());
+    const year = dateObj.getFullYear();
+    const dayforweek = days[dateObj.getDay()];
+    if (birthday[0] == day && birthday[1] == month.toLowerCase()) {
+        document.getElementById("greeting").innerHTML = `Happy birthday, ${name}! &#127874;`
+    } if (month == "December") {
+        document.getElementById("greeting").innerHTML = `Happy holidays, ${name}! &#10052;`
+    } if (month == "January" && day == "1") {
+        document.getElementById("greeting").innerHTML = `Happy new year, ${name}! &#127881;`
+    }
+}
+
+function getBirthday() {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const dateObj = new Date();
+    const month = monthNames[dateObj.getMonth()];
+    const birthday = configuration.decor.birthday.toLowerCase().split(" ")
+    let day = String(dateObj.getDate());
+    if (birthday[0] == day && birthday[1] == month.toLowerCase()) {
+        confetti.start(1000)
+    }
+};
 
 function weather() {
     let units = {}
@@ -89,10 +124,14 @@ window.onload = function() {
     getTime();
     getDDMMYY();
     getGreeting();
+    getBirthday();
+    findHolidays();
 }
 
 setInterval(getTime, 1000);
 setInterval(getGreeting, 600000);
 setInterval(getDDMMYY, 10000);
+setInterval(findHolidays, 1000);
 setInterval(weather, 120000);
+setInterval(getBirthday, 120000);
 document.body.style.background = `url(${configuration.decor.background}) no-repeat center center`;
