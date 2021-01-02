@@ -58,7 +58,7 @@ function getDDMMYY() {
     const year = dateObj.getFullYear();
     const dayforweek = days[dateObj.getDay()];
     output = `${dayforweek}, ${day} ${month} ${year}`;
-    if (birthday[0] == day && birthday[1] == month.toLowerCase()) confetti.start()
+    if (birthday[0] == day && birthday[1] == month.toLowerCase()) confetti.start(5000)
     document.getElementById("daynamemid").innerHTML = output;
 }
 
