@@ -1,13 +1,19 @@
 {
-    "name": "electron-pi-dashboard",
+    "name": "miniboard",
     "version": "1.0.0",
     "main": "main.js",
     "contributors": [
         "Dannington",
         "bren"
     ],
+    "scripts": {
+        "start": "npx electron ."
+    },
     "dependencies": {
         "@cliqz/adblocker-electron": "^1.19.0",
         "cross-fetch": "^3.0.6"
+    },
+    "devDependencies": {
+        "electron": "^11.1.1"
     }
 }

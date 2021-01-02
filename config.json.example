@@ -1,10 +1,18 @@
 {
     "key": "your key here",
     "placeid": "your weather id here",
+    "units": 0,
+    "//UNITS": "Use 0 for Celsius and 1 for Fahrenheit",
     "decor": {
-        "background": "https://wallpaperaccess.com/full/869923.gif"
+        "background": "https://wallpaperaccess.com/full/869923.gif",
+        "name": "Person",
+        "birthday": "",
+        "//BIRTHDAY": "BIRTHDAY MUST BE IN DD/MM FORMAT (example: 9 February)",
+        "12hr": false
     },
     "media": {
-        "youtube": "https://www.youtube.com/"
+        "youtube": "https://www.youtube.com/",
+        "youtube_tv": true,
+        "youtube_tv_link": "https://www.youtube.com/tv"
     }
 }

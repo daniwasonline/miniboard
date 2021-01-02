@@ -1,6 +1,7 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="index.css">
+        <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
         <title>Miniboard</title>
     </head>
     <body>
@@ -8,18 +9,18 @@
         <div class="container">
             <div class="weather-side">
                 <div class="weather-gradient"></div>
-                <div class="date-container">
-                    <h2 class="date-dayname" id="dayname">gamingday</h2><span class="date-day" id="ddmmyy"></span><img src="icons\arrowlocation.svg" class="location-icon" data-feather="map-pin"></i><span class="location" id="place"></span>
-                </div>
                 <div class="weather-container"><i class="weather-icon" data-feather="sun"></i>
                     <h1 id="temp" class="weather-temp"></h1>
                     <h3 class="weather-desc" id="weatherdesc"></h3>
+                    <img src="assets/arrowlocation.png" class="location-icon" data-feather="map-pin"></i><span class="location" id="place"></span>
                 </div>
             </div>
            
         </div>
         <div class="centerDiv">
             <h1 id="timeJS" class="time"></h1>
+            <br>
+            <h6 id="greeting" class="greeting"></h6>
             <br>
             <h6 id="daynamemid" class="time"></h6>
         </div>
