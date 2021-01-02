@@ -6,25 +6,32 @@ A program written in Node.js using the Electron framework to display the weather
 
 You can download, configure, and run this in just a few steps.
 
-1. **Download Node.js and Electron if you haven't already done so.**
+#### Requirements
+- [Node.js](https://nodejs.org) ([Linux installation with NVM](https://github.com/nvm-sh/nvm)
+- [Electron](https://electronjs.org)
+- An [OpenWeatherMap](https://openweathermap.org) API key
+- (Optional) A [Last.fm API key](https://www.last.fm/api/account/create), for getting your Last.fm scrobbles (Spotify included)!
 
+#### Main installation
+
+1. **Download Node.js and Electron if you haven't already done so.**
 You can install Node for Linux and macOS [here, following the instructions](https://github.com/nvm-sh/nvm), or you can install it on Windows [here](https://nodejs.org).
 
-2. Install Electron using the following command:
+2. **Install Electron using the following command**:
 
 ``npm i -g electron``
 
-3. Clone the repository like so, then cd into the directory:
+3. **Clone the repository like so, then cd into the directory:**
 
 ``git clone https://github.com/Dannnington/miniboard``
 
 ``cd miniboard``
 
-4. Download dependencies:
+4. **Download dependencies:**
 
 ``npm install``
 
-5. Run the app!
+5. **Run the app!**
 
 ``electron ./main.js``
 
