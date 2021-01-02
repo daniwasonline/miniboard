@@ -98,6 +98,12 @@ function getBirthday() {
 };
 
 async function track() {
+    const conf = await (await fetch("../config.json")).json()
+    if (conf.media.lastfm.enabled !== true) {
+        document.getElementById("spotify").style.display = "none";
+    } if (conf.media.lastfm.enabled == true) {
+        document.getElementById("spotify").style.display = "block";
+    }
     const track = await window.bridge.media.getNewestTrack()
 };
 
@@ -170,6 +176,7 @@ window.onload = function() {
     getGreeting();
     getBirthday();
     findHolidays();
+    track();
 }
 
 setInterval(getTime, 1000);
@@ -178,4 +185,5 @@ setInterval(getDDMMYY, 10000);
 setInterval(findHolidays, 1000);
 setInterval(weather, 120000);
 setInterval(getBirthday, 120000);
+setInterval(track, 120000)
 document.body.style.background = `url(${configuration.decor.background}) no-repeat center center`;

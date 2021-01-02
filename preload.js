@@ -23,9 +23,10 @@ contextBridge.exposeInMainWorld(
 
         media: {
             getNewestTrack: async () => {
-                const res = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${pkgconf.media.lastfm.username}&api_key=${pkgconf.media.lastfm.key}&format=json&limit=1`)
-                const track = await res.json()
-                return track.recenttracks.track[0]
+                const resraw = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${pkgconf.media.lastfm.username}&api_key=${pkgconf.media.lastfm.key}&format=json&limit=1`).then(async res => {
+                    const track = await res.json()
+                    return track.recenttracks.track[0]
+                }).catch(e => { return false; })
             }
         }
     }

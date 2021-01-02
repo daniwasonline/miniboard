@@ -16,6 +16,7 @@
         "youtube_tv": true,
         "youtube_tv_link": "https://www.youtube.com/tv",
         "lastfm": {
+            "enabled": false,
             "key": "",
             "username": ""
         }  
