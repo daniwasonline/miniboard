@@ -4,6 +4,8 @@ A program written in Node.js using the Electron framework to display the weather
 ## How can I use Miniboard?
 **At the moment, Miniboard does not have a standalone binary, but these will be made soon.**
 
+**Another note: This program was developed for a 1920\*1080* (1080p) screen, and was coded with a 1050p monitor**. Screens that have a higher or lower resolution do not have guaranteed scaling & positioning.
+
 You can download, configure, and run this in just a few steps.
 
 #### Requirements

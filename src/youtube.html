@@ -30,14 +30,14 @@
     <body>
         <div>
             <h3 id="title">YouTube <a href="index.html">(Go back)</a> <a href="youtube.html">(Refresh)</a></h3>
-            <webview class="web" id="web" partition="persist:webview">
+            <webview class="web" id="web">
         </div>
         <script>
             const configuration = window.bridge.information.getConfig()
             if (configuration.media.youtube_tv == false) {
-                document.getElementById("web").src = configuration.media.youtube
+               document.getElementById("web").src = configuration.media.youtube
             } if (configuration.media.youtube_tv !== false) {
-                document.getElementById("web").src = configuration.media.youtube_tv_link
+               document.getElementById("web").src = configuration.media.youtube_tv_link
                 document.getElementById("web").useragent = "Mozilla/5.0 (SMART-TV; Linux; Tizen 2.4.0) AppleWebkit/538.1 (KHTML, like Gecko) SamsungBrowser/1.1 TV Safari/538.1"
             }
         </script>
