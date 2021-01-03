@@ -1,4 +1,4 @@
-const { app, BrowserWindow, screen, Tray, session } = require("electron");
+const { app, BrowserWindow, screen, Tray, session, ipcMain } = require("electron");
 const { ElectronBlocker } = require("@cliqz/adblocker-electron")
 const fetch = require("cross-fetch");
 const path = require("path");
@@ -17,6 +17,18 @@ app.on("ready", async function () {
     //window.toggleDevTools()
     ElectronBlocker.fromPrebuiltAdsAndTracking(fetch).then((blocker) => {
         blocker.enableBlockingInSession(session.defaultSession);
+    });
+
+    ipcMain.on('hideApp', (e) => {
+        window.loadFile("./src/none.html");
+        window.setFullScreen(false);
+        window.hide();
+    });
+
+    ipcMain.on('showApp', (e) => {
+        window.show();
+        window.loadFile("./src/index.html");
+        window.setFullScreen(true);
     });
 });
 
