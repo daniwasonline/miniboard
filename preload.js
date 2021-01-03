@@ -32,7 +32,7 @@ contextBridge.exposeInMainWorld(
             openNetflix: async () => {
                 const netflix = child.execFile("gnome-terminal", ["sudo sh ./loadnetflix.sh"]);
                 ipcRenderer.send("hideApp");
-                netflix.on("disconnect", async function () {
+                netflix.on("error", async function () {
                     ipcRenderer.send("showApp");
                 });
             }
