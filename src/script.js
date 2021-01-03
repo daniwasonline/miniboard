@@ -73,6 +73,8 @@ function getDDMMYY() {
 
 function findHolidays() {
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const snowMonths = ["December", "January", "February"];
+    const snowDays = ["17", "18", "19", "20", "21", "22", "23", "24", "25"];
     const dateObj = new Date();
     const birthday = configuration.decor.birthday.toLowerCase().split(" ")
     const month = monthNames[dateObj.getMonth()];
@@ -81,10 +83,15 @@ function findHolidays() {
     const dayforweek = days[dateObj.getDay()];
     if (birthday[0] == day && birthday[1] == month.toLowerCase()) {
         document.getElementById("greeting").innerHTML = `Happy birthday, ${name}! &#127874;`
-    } if (month == "December") {
-        document.getElementById("greeting").innerHTML = `Happy holidays, ${name}! &#10052;`
+    } if (snowMonths.includes(month)) {
+        document.getElementById("snow").style.display = "block";
+        if (month == "December" && snowDays.includes(day)) {
+            document.getElementById("greeting").innerHTML = `Happy holidays, ${name}! &#10052;`
+        }
     } if (month == "January" && day == "1") {
         document.getElementById("greeting").innerHTML = `Happy new year, ${name}! &#127881;`
+    } if (!snowMonths.includes(month)) {
+        document.getElementById("snow").style.display = "none";
     }
 }
 
