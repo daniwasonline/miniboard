@@ -371,5 +371,62 @@ body, html {
 .logolink {
   height: 50px;
   width: 50px;
-  margin-left: 20px;
+}
+
+#youtube {
+  border-radius: 50%;
+  position: absolute;
+  bottom: 132px;
+  right: 32px;
+}
+
+#refresh {
+  border-radius: 50%;
+  position: absolute;
+  bottom: 66px;
+  right: 32px;
+}
+
+#exit {
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  right: 32px;
+}
+
+#youtube-static {
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  bottom: 132px;
+  right: 32px;
+}
+
+#refresh-static {
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  bottom: 66px;
+  right: 32px;
+}
+
+#exit-static {
+  border-radius: 50%;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  right: 32px;
+}
+
+#youtube-static:hover {
+  opacity: 0;
+}
+
+#refresh-static:hover {
+  opacity: 0;
+}
+
+#exit-static:hover {
+  opacity: 0;
 }

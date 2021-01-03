@@ -100,7 +100,7 @@ function getBirthday() {
 async function track() {
     const conf = await (await fetch("../config.json")).json()
     if (conf.media.lastfm.enabled !== true) {
-        document.getElementById("spotify").style.display = "none";
+        return document.getElementById("spotify").style.display = "none";
     } if (conf.media.lastfm.enabled == true) {
         document.getElementById("spotify").style.display = "block";
     }
