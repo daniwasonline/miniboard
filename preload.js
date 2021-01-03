@@ -2,6 +2,7 @@ const { contextBridge, ipcRenderer } = require("electron");
 const fetch = require("node-fetch");
 const child = require("child_process");
 const pkgconf = require("./config.json");
+const processExists = require("process-exists");
 
 contextBridge.exposeInMainWorld(
     "bridge", {
@@ -30,11 +31,13 @@ contextBridge.exposeInMainWorld(
                 }).catch(e => { return false; })
             },
             openNetflix: async () => {
-                const netflix = child.execFile("gnome-terminal", ["sudo sh ./loadnetflix.sh"]);
+                const netflix = child.execFile("sh", ["./loadnetflix.sh"]);
                 ipcRenderer.send("hideApp");
-                netflix.on("error", async function () {
-                    ipcRenderer.send("showApp");
-                });
+                setInterval(async function () {
+                    if (!processExists("chromium-armhf")) {
+                        ipcRenderer.send("showApp");
+                    }
+                }, 2500);
             }
         }
     }

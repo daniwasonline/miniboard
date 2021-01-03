@@ -12,7 +12,8 @@
     "dependencies": {
         "@cliqz/adblocker-electron": "^1.19.0",
         "cross-fetch": "^3.0.6",
-        "node-fetch": "^2.6.1"
+        "node-fetch": "^2.6.1",
+        "process-exists": "^4.0.0"
     },
     "devDependencies": {
         "electron": "^11.1.1"
