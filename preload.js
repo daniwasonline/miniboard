@@ -30,9 +30,8 @@ contextBridge.exposeInMainWorld(
                 }).catch(e => { return false; })
             },
             openNetflix: async () => {
-                const netflix = child.execFile("sh", ["/usr/local/bin/chromium-armhf"]);
+                const netflix = child.execFile("sudo sh", ["/usr/local/bin/chromium-armhf"]);
                 ipcRenderer.send("hideApp");
-                netflix.on("message", function (a) { console.log(a) })
                 netflix.on("exit", async function () {
                     ipcRenderer.send("showApp");
                 });
