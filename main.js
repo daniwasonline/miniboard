@@ -21,11 +21,9 @@ app.on("ready", async function () {
 
     ipcMain.on('hideApp', (e) => {
         window.setFullScreen(false);
-        window.hide();
     });
 
     ipcMain.on('showApp', (e) => {
-        window.show();
         window.loadFile("./src/index.html");
         window.setFullScreen(true);
     });
