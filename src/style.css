@@ -52,6 +52,7 @@
 
 body {
     background-color: #037971;
+    cursor: none;
 }
 .bg {
     /* The image used */
@@ -280,7 +281,6 @@ body, html {
 .week-list>li {
   float: left;
   padding: 15px;
-  cursor: pointer;
   -webkit-transition: 200ms ease;
   -o-transition: 200ms ease;
   transition: 200ms ease;
@@ -341,7 +341,6 @@ body, html {
   font-weight: 700;
   -webkit-box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 30px -5px rgba(0, 0, 0, 0.25);
-  cursor: pointer;
   -webkit-transition: -webkit-transform 200ms ease;
   transition: -webkit-transform 200ms ease;
   -o-transition: transform 200ms ease;

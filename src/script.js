@@ -1,4 +1,6 @@
 var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+let timeout;
+
 const hoursOfDay = {
     "morning": [5, 6, 7, 8, 9, 10, 11],
     "noon": [12],
@@ -177,6 +179,7 @@ window.onload = function() {
     getBirthday();
     findHolidays();
     track();
+    document.querySelector("body").style.cursor = "auto";
 }
 
 setInterval(getTime, 1000);
@@ -187,3 +190,28 @@ setInterval(weather, 120000);
 setInterval(getBirthday, 120000);
 setInterval(track, 120000)
 document.body.style.background = `url(${configuration.decor.background}) no-repeat center center`;
+
+(async function() {
+    var mouseTimer = null, cursorVisible = true;
+
+    function disappearCursor() {
+        mouseTimer = null;
+        document.body.style.cursor = "none";
+        cursorVisible = false;
+    }
+
+    document.onmousemove = function() {
+        if (mouseTimer) {
+            window.clearTimeout(mouseTimer);
+        }
+        if (!cursorVisible) {
+            document.body.style.cursor = "default";
+            cursorVisible = true;
+        }
+        mouseTimer = window.setTimeout(disappearCursor, 5000);
+    };
+
+    setTimeout(function() {
+        mouseTimer = window.setTimeout(disappearCursor, 5000);
+    }, 5000)
+})();
