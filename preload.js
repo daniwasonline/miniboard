@@ -30,7 +30,7 @@ contextBridge.exposeInMainWorld(
                 }).catch(e => { return false; })
             },
             openNetflix: async () => {
-                const netflix = child.execFile("sudo", "/bin/bash -c ./loadnetflix.sh");
+                const netflix = child.execFile("sudo", "./loadnetflix.sh");
                 ipcRenderer.send("hideApp");
                 netflix.on("exit", async function () {
                     ipcRenderer.send("showApp");
