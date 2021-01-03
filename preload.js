@@ -1,6 +1,7 @@
 const { contextBridge, app } = require("electron");
 const fetch = require("node-fetch");
-const pkgconf = require("./config.json")
+const child = require("child_process");
+const pkgconf = require("./config.json");
 
 contextBridge.exposeInMainWorld(
     "bridge", {
@@ -27,6 +28,13 @@ contextBridge.exposeInMainWorld(
                     const track = await res.json()
                     return track.recenttracks.track[0]
                 }).catch(e => { return false; })
+            },
+            openNetflix: async () => {
+                app.hide()
+                const netflix = child.exec("/usr/local/bin/chromium-armhf")
+                netflix.on("exit", async function () {
+                    app.show()
+                });
             }
         }
     }

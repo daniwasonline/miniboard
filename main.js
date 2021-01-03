@@ -1,6 +1,6 @@
 const { app, BrowserWindow, screen, Tray, session } = require("electron");
 const { ElectronBlocker } = require("@cliqz/adblocker-electron")
-const fetch = require("cross-fetch")
+const fetch = require("cross-fetch");
 const path = require("path");
 
 app.on("ready", async function () {

@@ -372,6 +372,15 @@ body, html {
   width: 50px;
 }
 
+#netflix {
+  border-radius: 50%;
+  position: absolute;
+  bottom: 198px;
+  right: 24px;
+  height: 66px;
+  width: 66px;
+}
+
 #youtube {
   border-radius: 50%;
   position: absolute;

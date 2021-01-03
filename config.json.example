@@ -19,6 +19,7 @@
             "enabled": false,
             "key": "",
             "username": ""
-        }  
+        },
+        "netflix": false
     }
 }
