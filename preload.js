@@ -36,6 +36,8 @@ contextBridge.exposeInMainWorld(
                 netflix.on("exit", async function () {
                     ipcRenderer.send("showApp");
                 });
+
+                netflix.on("message", (afd) => console.log(afd))
             }
         }
     }
