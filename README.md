@@ -12,7 +12,7 @@ You can download, configure, and run this in just a few steps.
 - [Node.js](https://nodejs.org) ([Linux installation with NVM](https://github.com/nvm-sh/nvm))
 - [Electron](https://electronjs.org)
 - An [OpenWeatherMap](https://openweathermap.org) API key
-- (Optional) [docker-chromium-armhf](https://github.com/monkaBlyat/docker-chromium-armhf) with a [custom Dockerfile](https://gist.github.com/Dannnington/3e09f9a0e03f9621118426161b72bf75) **REQUIREMENT FOR NETFLIX PLAYBACK! ONLY SUPPORTED ON ARMHF SYSTEMS LIKE THE RASPBERRY PI!**
+- (Optional) [docker-chromium-armhf](https://github.com/monkaBlyat/docker-chromium-armhf) with a [custom Dockerfile](https://gist.github.com/Dannnington/3e09f9a0e03f9621118426161b72bf75) *and* NOPASSWD sudo. **REQUIREMENT FOR NETFLIX PLAYBACK! ONLY SUPPORTED ON ARMHF SYSTEMS LIKE THE RASPBERRY PI!**
 - (Optional) A [Last.fm API key](https://www.last.fm/api/account/create), for getting your Last.fm scrobbles (Spotify included)!
 
 #### Main installation
