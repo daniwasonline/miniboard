@@ -31,13 +31,11 @@ contextBridge.exposeInMainWorld(
                 }).catch(e => { return false; })
             },
             openNetflix: async () => {
-                const netflix = child.execFile("sh", ["./loadnetflix.sh"]);
+                const netflix = child.execFile("sh", [__dirname + "/src/loadnetflix.sh"]);
                 ipcRenderer.send("hideApp");
-                setInterval(async function () {
-                    if (!processExists("chromium-armhf")) {
-                        ipcRenderer.send("showApp");
-                    }
-                }, 2500);
+            },
+            openAppFromNetflix: async () => {
+                ipcRenderer.send("showApp");
             }
         }
     }
