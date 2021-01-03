@@ -20,7 +20,6 @@ app.on("ready", async function () {
     });
 
     ipcMain.on('hideApp', (e) => {
-        window.loadFile("./src/none.html");
         window.setFullScreen(false);
         window.hide();
     });

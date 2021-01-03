@@ -30,8 +30,8 @@ contextBridge.exposeInMainWorld(
                 }).catch(e => { return false; })
             },
             openNetflix: async () => {
-                ipcRenderer.send("hideApp");
                 const netflix = child.execFile("/usr/local/bin/chromium-armhf");
+                ipcRenderer.send("hideApp");
                 netflix.on("exit", async function () {
                     ipcRenderer.send("showApp");
                 });
