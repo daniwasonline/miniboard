@@ -18,8 +18,11 @@
             }
 
             .web {
+                position: absolute;
+                top: 36px;
+                left: 100%;
                 width: 100%;
-                height: 1033px;
+                height: 1000px;
 		display: absolute;
             }
         </style>
@@ -27,7 +30,7 @@
     <body>
         <div>
             <h3 id="title">YouTube <a href="index.html">(Go back)</a> <a href="youtube.html">(Refresh)</a></h3>
-            <webview class="web" id="web">
+            <webview class="web" id="web" partition="persist:webview">
         </div>
         <script>
             const configuration = window.bridge.information.getConfig()
