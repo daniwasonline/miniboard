@@ -110,8 +110,6 @@ async function track() {
     const conf = await (await fetch("../config.json")).json();
     if (conf.media.lastfm.enabled !== true || !conf.media.lastfm.key || !conf.media.lastfm.username) {
         return document.getElementById("spotify").style.display = "none";
-    } if (conf.media.lastfm.enabled == true) {
-        document.getElementById("spotify").style.display = "block";
     };
     const track = await window.bridge.media.getNewestTrack();
     const title = track.name.slice(0, 23);
@@ -120,6 +118,11 @@ async function track() {
     document.getElementById("lastartist").innerText = artist;
     document.getElementById("albumart").src = track.image[3]["#text"].replace("300x300", "2048x2048");
     console.log(await window.bridge.media.getNewestTrack());
+    if (track["@attr"] == undefined) {
+        return document.getElementById("spotify").style.display = "none";
+    } if (track["@attr"] !== undefined) {
+        return document.getElementById("spotify").style.display = "block";
+    };
 };
 
 async function weather() {
@@ -207,7 +210,7 @@ setInterval(getDDMMYY, 10000);
 setInterval(findHolidays, 1000);
 setInterval(weather, 120000);
 setInterval(getBirthday, 120000);
-setInterval(track, 120000)
+setInterval(track, 15000)
 document.body.style.background = `url(${configuration.decor.background}) no-repeat center center`;
 
 (async function() {
