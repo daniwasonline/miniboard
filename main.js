@@ -28,7 +28,9 @@ app.on("ready", async function () {
     });
 
     setInterval(async function () {
-        window.loadFile("./src/index.html")
+        if (window.webContents.getURL().endsWith("index.html")) {
+            window.loadFile("./src/index.html")
+        }
     }, 900000);
 });
 
