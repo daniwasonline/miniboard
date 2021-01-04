@@ -11,7 +11,7 @@ app.on("ready", async function () {
         webviewTag: true,
         preload: path.join(__dirname + "/preload.js")
     }});
-
+    window.toggleDevTools()
     window.loadFile('./src/index.html');
     window.setFullScreen(true);
     //window.toggleDevTools()
