@@ -1,21 +1,37 @@
 # Miniboard
 A program written in Node.js using the Electron framework to display the weather, the time, and the date. It also allows you to use the version of YouTube used on Smart TVs (not to be confused with YouTube TV, the subscription TV service).
 
-## How can I use Miniboard?
-**At the moment, Miniboard does not have a standalone binary, but these will be made soon.**
+### Sidenotes for when you use Miniboard
+- **At the moment, Miniboard does not have a standalone binary, but these will be made soon.**
 
-**Another note: This program was developed for a 1920\*1080* (1080p) screen, and was coded with a 1050p monitor**. Screens that have a higher or lower resolution do not have guaranteed scaling & positioning.
+- **This program was developed for a 1920\*1080* (1080p) screen, and was coded with a 1050p monitor**.
 
-You can download, configure, and run this in just a few steps.
+### Copyright/trademark notices
+All of the icons, animations, fonts, services, and other copyrighted/trademarked content are owned by their respective copyright holders. 
 
-#### Requirements
-- [Node.js](https://nodejs.org) ([Linux installation with NVM](https://github.com/nvm-sh/nvm))
+- Icons and animations - Icons8
+- Fonts - Apple (San Francisco), Google Fonts
+- Services - Spotify, Netflix, YouTube, OpenWeatherMap, Google
+
+## Requirements
+- [Node.js](https://nodejs.org) ([Linux installation with NVM](https://github.com/nvm-sh/nvm)), for JavaScript
 - [Electron](https://electronjs.org)
-- An [OpenWeatherMap](https://openweathermap.org) API key
-- (Optional) [docker-chromium-armhf](https://github.com/monkaBlyat/docker-chromium-armhf) with a [custom Dockerfile](https://gist.github.com/Dannnington/3e09f9a0e03f9621118426161b72bf75) *and* NOPASSWD sudo. **REQUIREMENT FOR NETFLIX PLAYBACK! ONLY SUPPORTED ON ARMHF SYSTEMS LIKE THE RASPBERRY PI!**
-- (Optional) A [Last.fm API key](https://www.last.fm/api/account/create), for getting your Last.fm scrobbles (Spotify included)!
 
-#### Main installation
+### Optional requirements
+Miniboard contains additional service integrations, modules, and apps, a few of which are enabled by default. However, the rest of these integrations are optional but need additional setup to use.
+
+#### Weather module
+- An [OpenWeatherMap](https://openweathermap.org) API key and account
+- A place ID from [OpenWeatherMap](https://openweathermap.org), which can be obtained by **searching a place using the site's searchbar, then grabbing the place ID number from the URL**.
+
+#### DRM content (currently only Netflix) (ADVANCED!)
+- (Optional) [docker-chromium-armhf](https://github.com/monkaBlyat/docker-chromium-armhf) with a [custom Dockerfile](https://gist.github.com/Dannnington/3e09f9a0e03f9621118426161b72bf75); this is because many sites like Netflix or Spotify require a special component called **Widevine** to display copyrighted content, and with Linux on armhf devices like the Raspberry Pi, this is only possible with special tools or workarounds (like this, which uses Docker to emulate a system that has support for Widevine).
+
+#### Last-song-played module (powered by Last.fm, which supports Spotify as well (premium only))
+- A [Last.fm](https://www.last.fm) account, to create an API key and to get scrobbles
+- A [Last.fm API key](https://www.last.fm/api/account/create), for getting your Last.fm scrobbles.
+
+## Main installation
 
 1. **Download Node.js and Electron if you haven't already done so.**
 You can install Node for Linux and macOS [here, following the instructions](https://github.com/nvm-sh/nvm), or you can install it on Windows [here](https://nodejs.org).
@@ -34,7 +50,9 @@ You can install Node for Linux and macOS [here, following the instructions](http
 
 ``npm install``
 
-5. **Run the app!**
+5. **Configure Miniboard in config.json.**
+
+6. **Run the app!**
 
 ``electron ./main.js``
 

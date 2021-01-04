@@ -108,7 +108,7 @@ function getBirthday() {
 
 async function track() {
     const conf = await (await fetch("../config.json")).json();
-    if (conf.media.lastfm.enabled !== true) {
+    if (conf.media.lastfm.enabled !== true || !conf.media.lastfm.key || !conf.media.lastfm.username) {
         return document.getElementById("spotify").style.display = "none";
     } if (conf.media.lastfm.enabled == true) {
         document.getElementById("spotify").style.display = "block";
@@ -123,16 +123,22 @@ async function track() {
 };
 
 async function weather() {
-    let units = {}
-    if (configuration.units == 0 || configuration.units == undefined) {
+    let units = {};
+    if (!configuration.openweather.key || !configuration.openweather.placeid) {
+        document.getElementById("weather").style.display = "none";
+    } if (configuration.openweather.key && configuration.openweather.placeid) {
+        document.getElementById("weather").style.display = "block";
+    };
+    
+    if (configuration.openweather.units == 0 || configuration.openweather.units == undefined) {
         units.fc = "C"
         units.unit = "metric"
     }
-    if (configuration.units == 1) { 
+    if (configuration.openweather.units == 1) { 
         units.fc = "F"
         units.unit = "imperial"
     }
-    fetch(`https://api.openweathermap.org/data/2.5/weather?id=${configuration.placeid}&appid=${configuration.key}&units=${units.unit}`)  
+    fetch(`https://api.openweathermap.org/data/2.5/weather?id=${configuration.openweather.placeid}&appid=${configuration.openweather.key}&units=${units.unit}`)  
     .then(function(resp) { return resp.json() })
     .then(function(data) {
         const icon = document.getElementsByClassName("weather-icon")[0]

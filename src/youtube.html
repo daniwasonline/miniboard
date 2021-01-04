@@ -32,13 +32,12 @@
         </div>
         <script>
             const configuration = window.bridge.information.getConfig()
-            if (configuration.media.youtube_tv == false) {
-               document.getElementById("web").src = configuration.media.youtube
-            } if (configuration.media.youtube_tv !== false) {
-               document.getElementById("web").src = configuration.media.youtube_tv_link
+            if (!configuration.media.youtube.enabled) {
+                document.location.href = "./misc/youtube-disabled.html";
+            }
+               document.getElementById("web").src = configuration.media.youtube.link
                document.getElementById("web").partition = "persist:youtube";
                document.getElementById("web").useragent = "Mozilla/5.0 (SMART-TV; Linux; Tizen 2.4.0) AppleWebkit/538.1 (KHTML, like Gecko) SamsungBrowser/1.1 TV Safari/538.1"
-            }
         </script>
     </body>
 </html>
