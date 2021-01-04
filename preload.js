@@ -33,6 +33,7 @@ contextBridge.exposeInMainWorld(
                 return resraw;
             },
             openNetflix: async () => {
+                console.log(os.arch())
                 if (os.arch() == "x64" || os.arch() == "x32" || os.arch() == "ia32" || os.platform() == "win32" || os.platform() == "darwin") { 
                     shell.openExternal("https://netflix.com")
                 } else if (os.arch() == "arm" && os.platform() == "linux") {
