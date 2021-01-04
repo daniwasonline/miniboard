@@ -26,9 +26,7 @@ Miniboard contains additional service integrations, modules, and apps, a few of 
 #### DRM content (currently only Netflix)
 On Windows, macOS, or x64/86 Linux, you don't need to do anything! Just set your default browser to the browser of your choice to watch Netflix and you're all set!
 
-On ARMHF Linux (commonly found on Raspberry Pis), it's a bit more complicated. You need to install [docker-chromium-armhf](https://github.com/monkaBlyat/docker-chromium-armhf) with a [custom Dockerfile](https://gist.github.com/Dannnington/3e09f9a0e03f9621118426161b72bf75) in order to get DRM-protected content working.
-
-**Linux ARM64 and ARMV7L are not supported.**
+On ARMHF/ARM64 Linux (commonly found on Raspberry Pis), it's a bit more complicated. You need to install [docker-chromium-armhf](https://github.com/monkaBlyat/docker-chromium-armhf) with a [custom Dockerfile](https://gist.github.com/Dannnington/3e09f9a0e03f9621118426161b72bf75) in order to get DRM-protected content working.
 
 #### Last-song-played module (powered by Last.fm, which supports Spotify as well (premium only))
 - A [Last.fm](https://www.last.fm) account, to create an API key and to get scrobbles

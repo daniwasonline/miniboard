@@ -36,7 +36,7 @@ contextBridge.exposeInMainWorld(
                 console.log(os.arch())
                 if (os.arch() == "x64" || os.arch() == "x32" || os.arch() == "ia32" || os.platform() == "win32" || os.platform() == "darwin") { 
                     shell.openExternal("https://netflix.com")
-                } else if (os.arch() == "arm" && os.platform() == "linux") {
+                } else if (os.arch() == "arm" && os.platform() == "linux" || os.arch() == "arm64" && os.platform() == "linux") {
                     const netflix = child.execFile("sh", [__dirname + "/src/loadnetflix.sh"]);
                     ipcRenderer.send("hideApp");
                 } else {
