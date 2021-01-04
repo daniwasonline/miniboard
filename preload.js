@@ -1,8 +1,9 @@
-const { contextBridge, ipcRenderer } = require("electron");
+const { contextBridge, ipcRenderer, shell } = require("electron");
 const fetch = require("node-fetch");
 const child = require("child_process");
 const pkgconf = require("./config.json");
 const processExists = require("process-exists");
+const os = require("os");
 
 contextBridge.exposeInMainWorld(
     "bridge", {
@@ -32,8 +33,14 @@ contextBridge.exposeInMainWorld(
                 return resraw;
             },
             openNetflix: async () => {
-                const netflix = child.execFile("sh", [__dirname + "/src/loadnetflix.sh"]);
-                ipcRenderer.send("hideApp");
+                if (os.arch() == "x64" || os.arch() == "x32" || os.arch() == "ia32" || os.platform() == "win32" || os.platform() == "darwin") { 
+                    shell.openExternal("https://netflix.com")
+                } else if (os.arch() == "arm" && os.platform() == "linux") {
+                    const netflix = child.execFile("sh", [__dirname + "/src/loadnetflix.sh"]);
+                    ipcRenderer.send("hideApp");
+                } else {
+                    document.getElementById("thanks").innerHTML = "DRM content isn't supported on this system."
+                }
             },
             openAppFromNetflix: async () => {
                 ipcRenderer.send("showApp");

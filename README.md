@@ -19,19 +19,22 @@ All of the icons, animations, fonts, services, and other copyrighted/trademarked
 
 ### Optional requirements
 Miniboard contains additional service integrations, modules, and apps, a few of which are enabled by default. However, the rest of these integrations are optional but need additional setup to use.
-
 #### Weather module
 - An [OpenWeatherMap](https://openweathermap.org) API key and account
 - A place ID from [OpenWeatherMap](https://openweathermap.org), which can be obtained by **searching a place using the site's searchbar, then grabbing the place ID number from the URL**.
 
-#### DRM content (currently only Netflix) (ADVANCED!)
-- (Optional) [docker-chromium-armhf](https://github.com/monkaBlyat/docker-chromium-armhf) with a [custom Dockerfile](https://gist.github.com/Dannnington/3e09f9a0e03f9621118426161b72bf75); this is because many sites like Netflix or Spotify require a special component called **Widevine** to display copyrighted content, and with Linux on armhf devices like the Raspberry Pi, this is only possible with special tools or workarounds (like this, which uses Docker to emulate a system that has support for Widevine).
+#### DRM content (currently only Netflix)
+On Windows, macOS, or x64/86 Linux, you don't need to do anything! Just set your default browser to the browser of your choice to watch Netflix and you're all set!
+
+On ARMHF Linux (commonly found on Raspberry Pis), it's a bit more complicated. You need to install [docker-chromium-armhf](https://github.com/monkaBlyat/docker-chromium-armhf) with a [custom Dockerfile](https://gist.github.com/Dannnington/3e09f9a0e03f9621118426161b72bf75) in order to get DRM-protected content working.
+
+**Linux ARM64 and ARMV7L are not supported.**
 
 #### Last-song-played module (powered by Last.fm, which supports Spotify as well (premium only))
 - A [Last.fm](https://www.last.fm) account, to create an API key and to get scrobbles
 - A [Last.fm API key](https://www.last.fm/api/account/create), for getting your Last.fm scrobbles.
 
-## Main installation
+## Install Miniboard
 
 1. **Download Node.js and Electron if you haven't already done so.**
 You can install Node for Linux and macOS [here, following the instructions](https://github.com/nvm-sh/nvm), or you can install it on Windows [here](https://nodejs.org).
