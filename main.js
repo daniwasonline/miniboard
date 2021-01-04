@@ -2,7 +2,7 @@ const { app, BrowserWindow, screen, Tray, session, ipcMain } = require("electron
 const { ElectronBlocker } = require("@cliqz/adblocker-electron")
 const fetch = require("cross-fetch");
 const path = require("path");
-
+app.disableHardwareAcceleration();
 app.on("ready", async function () {
     const window = new BrowserWindow({ width: 1680, height: 1050, minWidth: 512, minHeight: 512, frame: true, show: true, webPreferences: {
         nodeIntegration: false,
@@ -11,7 +11,6 @@ app.on("ready", async function () {
         webviewTag: true,
         preload: path.join(__dirname + "/preload.js")
     }});
-    window.toggleDevTools()
     window.loadFile('./src/index.html');
     window.setFullScreen(true);
     //window.toggleDevTools()
