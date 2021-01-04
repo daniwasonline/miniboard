@@ -107,13 +107,19 @@ function getBirthday() {
 };
 
 async function track() {
-    const conf = await (await fetch("../config.json")).json()
+    const conf = await (await fetch("../config.json")).json();
     if (conf.media.lastfm.enabled !== true) {
         return document.getElementById("spotify").style.display = "none";
     } if (conf.media.lastfm.enabled == true) {
         document.getElementById("spotify").style.display = "block";
-    }
-    const track = await window.bridge.media.getNewestTrack()
+    };
+    const track = await window.bridge.media.getNewestTrack();
+    const title = track.name.slice(0, 23);
+    const artist = track.artist["#text"].slice(0, 33);
+    document.getElementById("lasttitle").innerText = title;
+    document.getElementById("lastartist").innerText = artist;
+    document.getElementById("albumart").src = track.image[3]["#text"].replace("300x300", "2048x2048");
+    console.log(await window.bridge.media.getNewestTrack());
 };
 
 async function weather() {

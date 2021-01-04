@@ -100,7 +100,7 @@ body, html {
   
 }
 
-.spotify-container {
+.spotify-maincontainer {
   position:absolute;
    top:32.5%;
    right: 1%;
@@ -111,46 +111,7 @@ body, html {
   background-color: #222831;
   color: #ffffff;
   height: 275px;
-}
-
-.spotify-side:hover {
-  -webkit-transform: scale(1.1) perspective(1500px) rotateY(10deg);
-          transform: scale(1.1) perspective(1500px) rotateY(10deg);
-}
-
-.spotify-gradient {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-image: /*var(--gradient)*/linear-gradient(45.34deg, #2bff00 3.50%, #0078e9 96.50%);
-  border-radius: 25px;
-  opacity: 0.8;
-}
-
-.spotify-side {
-  position: relative;
-  height: 100%;
-  border-radius: 25px;
   
-  width: 300px;
-  -webkit-box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.2);
-          box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.2);
-  -webkit-transition: -webkit-transform 300ms ease;
-  transition: -webkit-transform 300ms ease;
-  -o-transition: transform 300ms ease;
-  transition: transform 300ms ease;
-  transition: transform 300ms ease, -webkit-transform 300ms ease;
-  -webkit-transform: translateZ(0) scale(1.02) perspective(1000px);
-          transform: translateZ(0) scale(1.02) perspective(1000px);
-  float: left;
-}
-
-.spotify2-container {
-  position: absolute;
-  bottom: 25px;
-  left: 25px;
 }
 
 .weather-side {
@@ -176,13 +137,47 @@ body, html {
           transform: scale(1.1) perspective(1500px) rotateY(10deg);
 }
 
+.spotify-side {
+  position: relative;
+  height: 100%;
+  border-radius: 25px;
+  
+  width: 300px;
+  -webkit-box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.2);
+  -webkit-transition: -webkit-transform 300ms ease;
+  transition: -webkit-transform 300ms ease;
+  -o-transition: transform 300ms ease;
+  transition: transform 300ms ease;
+  transition: transform 300ms ease, -webkit-transform 300ms ease;
+  -webkit-transform: translateZ(0) scale(1.02) perspective(1000px);
+          transform: translateZ(0) scale(1.02) perspective(1000px);
+  float: left;
+}
+
+.spotify-side:hover {
+  -webkit-transform: scale(1.1) perspective(1500px) rotateY(10deg);
+          transform: scale(1.1) perspective(1500px) rotateY(10deg);
+}
+
 .weather-gradient {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  background-image: /*var(--gradient)*/linear-gradient(45.34deg, #8c52f8 3.50%, #0099ff 96.50%);;
+  background-image: /*var(--gradient)*/linear-gradient(45.34deg, #8c52f8 3.50%, #0099ff 96.50%);
+  border-radius: 25px;
+  opacity: 0.8;
+}
+
+.spotify-gradient {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-image: /*var(--gradient)*/linear-gradient(45.34deg, #2e0000 3.50%, #ce1919 96.50%);;
   border-radius: 25px;
   opacity: 0.8;
 }
@@ -221,6 +216,12 @@ body, html {
   left: 25px;
 }
 
+.spotify-container {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+}
+
 .weather-icon.feather {
   height: 60px;
   width: auto;
@@ -232,10 +233,23 @@ body, html {
   font-size: 4em;
 }
 
-.spotify-module {
-  margin: 0;
+.spotify-title {
+  width: 156px;
+  margin-bottom: -40px;
   font-weight: 700;
-  font-size: 4em;
+  font-size: 24px;
+}
+
+.spotify-art {
+  border-radius: 10%;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.spotify-artist {
+  margin-top: 40px;
+  font-weight: 700;
+  font-size: 16px;
 }
 
 .weather-desc {

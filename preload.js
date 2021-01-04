@@ -29,6 +29,7 @@ contextBridge.exposeInMainWorld(
                     const track = await res.json()
                     return track.recenttracks.track[0]
                 }).catch(e => { return false; })
+                return resraw;
             },
             openNetflix: async () => {
                 const netflix = child.execFile("sh", [__dirname + "/src/loadnetflix.sh"]);
