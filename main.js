@@ -29,7 +29,8 @@ app.on("ready", async function () {
 
     setInterval(async function () {
         if (window.webContents.getURL().endsWith("index.html")) {
-            window.loadFile("./src/index.html")
+            app.relaunch();
+            app.exit();
         }
     }, 900000);
 });
