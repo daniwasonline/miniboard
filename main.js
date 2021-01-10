@@ -29,8 +29,9 @@ app.on("ready", async function () {
 
     setInterval(async function () {
         if (window.webContents.getURL().endsWith("index.html")) {
-            app.relaunch();
-            app.exit();
+            if (require("./config.json").process_manager == true) {
+                app.exit();
+            }
         }
     }, 900000);
 });
