@@ -84,14 +84,11 @@ function findHolidays() {
     if (birthday[0] == day && birthday[1] == month.toLowerCase()) {
         document.getElementById("greeting").innerHTML = `Happy birthday, ${name}! &#127874;`
     } if (snowMonths.includes(month)) {
-        document.getElementById("snow").style.display = "block";
         if (month == "December" && snowDays.includes(day)) {
             document.getElementById("greeting").innerHTML = `Happy holidays, ${name}! &#10052;`
         }
     } if (month == "January" && day == "1") {
         document.getElementById("greeting").innerHTML = `Happy new year, ${name}! &#127881;`
-    } if (!snowMonths.includes(month)) {
-        document.getElementById("snow").style.display = "none";
     }
 }
 
