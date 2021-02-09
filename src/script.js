@@ -4,21 +4,21 @@ let timeout;
 const crazyArray = [
     {
         id: "putin",
-        day: "9",
-        month: "February",
-        message: "☭ HAPPY BIRTHDAY ВЛАДИМИР ПУТИН! ☭"
+        day: "7",
+        month: "October",
+        message: "HAPPY BIRTHDAY PRESIDENT PUTIN!"
     },
     {
         id: "jong",
         day: "8",
         month: "January",
-        message: "☭ 생일 축하 KIM JONG-UN! 최고 지도자를 만난다! ☭"
+        message: "happy birthday to the supreme leader"
     },
     {
         id: "laden",
         day: "10",
         month: "March",
-        message: "!عيد ميلاد سعيد اسامة بن لادن"
+        message: "it's osama bin laden's birthday"
     }
 ];
 
@@ -77,7 +77,7 @@ function getGreeting() {
     }
 
     if (birthday[0] == day && birthday[1] == month.toLowerCase()) {
-        document.getElementById("greeting").innerHTML = `Happy birthday, ${name}! &#127881;`
+        document.getElementById("greeting").innerHTML = `Happy birthday ${name}! &#127881;`
     }
 };
 
@@ -102,25 +102,25 @@ function findHolidays() {
     let day = String(dateObj.getDate());
     const year = dateObj.getFullYear();
     const dayforweek = days[dateObj.getDay()];
-    if (birthday[0] == day && birthday[1] == month.toLowerCase()) {
-        document.getElementById("greeting").innerHTML = `Happy birthday, ${name}! &#127874;`
-    } if (snowMonths.includes(month)) {
+    if (snowMonths.includes(month)) {
         if (month == "December" && snowDays.includes(day)) {
             document.getElementById("greeting").innerHTML = `Happy holidays, ${name}! &#10052;`
         }
     } if (month == "January" && day == "1") {
         document.getElementById("greeting").innerHTML = `Happy new year, ${name}! &#127881;`
-    } if (configuration.decor.crazyPeopleHolidays == true) {
+    } if (configuration.decor.crazyholidays == true) {
         console.log("Holidays v1.0.0 || Matched configuration criteria!")
-        if (crazyArray.includes(month) && crazyArray.includes(day)) {
-            console.log("Holidays v1.0.0 || Matched a holiday!")
-            crazyArray.forEach(arrayElement => {
-                if (month !== arrayElement.month && day !== arrayElement.day) return;
-                if (month == arrayElement.month && day == arrayElement.day) {
-                    document.getElementById("greeting").innerHTML = arrayElement.message;
-                };
-            });
-        };
+        crazyArray.forEach(mainElement => {
+            if (mainElement.month.includes(month) && mainElement.day.includes(day)) {
+                console.log("Holidays v1.0.0 || Matched a holiday!")
+                crazyArray.forEach(arrayElement => {
+                    if (month !== arrayElement.month && day !== arrayElement.day) return;
+                    if (month == arrayElement.month && day == arrayElement.day) {
+                        document.getElementById("greeting").innerHTML = arrayElement.message;
+                    };
+                });
+            };
+        });
     };
 }
 
@@ -228,9 +228,9 @@ window.onload = function() {
     getDDMMYY();
     getGreeting();
     getBirthday();
-    findHolidays();
     track();
     document.querySelector("body").style.cursor = "auto";
+    findHolidays();
 }
 
 setInterval(getTime, 1000);
