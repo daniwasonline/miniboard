@@ -10,7 +10,9 @@
         "name": "Person",
         "birthday": "1 January",
         "//BIRTHDAY": "BIRTHDAY MUST BE IN DD/MM FORMAT (example: 9 February)",
-        "12hr": false
+        "12hr": false,
+        "holidays": true,
+        "crazyPeopleHolidays": false
     },
     "media": {
         "youtube": {

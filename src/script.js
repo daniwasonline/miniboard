@@ -1,6 +1,24 @@
 var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 let timeout;
 
+const crazyArray = [
+    {
+        day: "9",
+        month: "February",
+        message: "☭ HAPPY BIRTHDAY ВЛАДИМИР ПУТИН! ☭"
+    },
+    {
+        day: "8",
+        month: "January",
+        message: "☭ 생일 축하 KIM JONG-UN! 최고 지도자를 만난다! ☭"
+    },
+    {
+        day: "10",
+        month: "March",
+        message: "!عيد ميلاد سعيد اسامة بن لادن"
+    }
+];
+
 const hoursOfDay = {
     "morning": [5, 6, 7, 8, 9, 10, 11],
     "noon": [12],
@@ -90,6 +108,9 @@ function findHolidays() {
     } if (month == "January" && day == "1") {
         document.getElementById("greeting").innerHTML = `Happy new year, ${name}! &#127881;`
     }
+
+
+    
 }
 
 function getBirthday() {
