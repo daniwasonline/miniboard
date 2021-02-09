@@ -3,16 +3,19 @@ let timeout;
 
 const crazyArray = [
     {
+        id: "putin",
         day: "9",
         month: "February",
         message: "☭ HAPPY BIRTHDAY ВЛАДИМИР ПУТИН! ☭"
     },
     {
+        id: "jong",
         day: "8",
         month: "January",
         message: "☭ 생일 축하 KIM JONG-UN! 최고 지도자를 만난다! ☭"
     },
     {
+        id: "laden",
         day: "10",
         month: "March",
         message: "!عيد ميلاد سعيد اسامة بن لادن"
@@ -107,10 +110,16 @@ function findHolidays() {
         }
     } if (month == "January" && day == "1") {
         document.getElementById("greeting").innerHTML = `Happy new year, ${name}! &#127881;`
-    }
-
-
-    
+    } if (configuration.decor.crazyPeopleHolidays == true) {
+        if (crazyArray.includes(month) && crazyArray.includes(day)) {
+            crazyArray.forEach(arrayElement => {
+                if (month !== arrayElement.month && day !== arrayElement.day) return;
+                if (month == arrayElement.month && day == arrayElement.day) {
+                    document.getElementById("greeting").innerHTML = arrayElement.message;
+                };
+            });
+        };
+    };
 }
 
 function getBirthday() {
