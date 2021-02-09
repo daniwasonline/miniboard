@@ -111,7 +111,9 @@ function findHolidays() {
     } if (month == "January" && day == "1") {
         document.getElementById("greeting").innerHTML = `Happy new year, ${name}! &#127881;`
     } if (configuration.decor.crazyPeopleHolidays == true) {
+        console.log("Holidays v1.0.0 || Matched configuration criteria!")
         if (crazyArray.includes(month) && crazyArray.includes(day)) {
+            console.log("Holidays v1.0.0 || Matched a holiday!")
             crazyArray.forEach(arrayElement => {
                 if (month !== arrayElement.month && day !== arrayElement.day) return;
                 if (month == arrayElement.month && day == arrayElement.day) {
