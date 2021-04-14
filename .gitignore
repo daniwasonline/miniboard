@@ -105,3 +105,4 @@ dist
 
 # Other files related to Miniboard
 config.json
+package-lock.json
