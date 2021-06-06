@@ -190,8 +190,10 @@ async function track() {
         return document.getElementById("spotify").style.display = "none";
     };
     const track = await window.bridge.media.getNewestTrack();
-    const title = track.name.slice(0, 23);
-    const artist = track.artist["#text"].slice(0, 33);
+    var title = track.name.slice(0, 28);
+    var artist = track.artist["#text"].slice(0, 33);
+    if (track.name.length >= 29) title = title + "...";
+    if (track.artist["#text"].length >= 34) artist = artist + "...";
     const albumArt = track.image[3]["#text"].replace("300x300", "2048x2048");
     const colours = await Vibrant.from(albumArt).getPalette();
 
@@ -287,6 +289,9 @@ window.onload = function() {
     track();
     document.querySelector("body").style.cursor = "auto";
     findHolidays();
+
+    if (!configuration.media.youtube.enabled) document.getElementById("youtube").style.visibility = "hidden";
+    if (!configuration.media.netflix) document.getElementById("netflix").style.visibility = "hidden";
 }
 
 setInterval(getTime, 1000);
@@ -295,7 +300,7 @@ setInterval(getDDMMYY, 10000);
 setInterval(findHolidays, 1000);
 setInterval(weather, 120000);
 setInterval(getBirthday, 120000);
-setInterval(track, 10000)
+setInterval(track, 15000);
 document.body.style.background = `url(${configuration.decor.background}) no-repeat center center`;
 
 (async function() {
