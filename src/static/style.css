@@ -1,20 +1,26 @@
 @font-face {
-	font-family: "SanFrancisco";
-	font-weight: 400;
-	src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-bold-webfont.woff");
+	font-family: "Red Hat Prominent";
+	font-weight: 900;
+	src: url("./fonts/RedHatDisplay/ttf/RedHatDisplay-Black.ttf");
 }
 
 @font-face {
 	font-family: "Red Hat Display";
-	font-weight: 400;
-	src: url("./fonts/RedHatDisplay-Bold.ttf");
+	font-weight: 700;
+	src: url("./fonts/RedHatDisplay/ttf/RedHatDisplay-Bold.ttf");
+}
+
+@font-face {
+	font-family: "Manrope Display";
+	font-weight: 900;
+	src: url("./fonts/Manrope/woff/Manrope-ExtraBold.woff2");
 }
 
 .time {
-	font-family: "SanFrancisco";
+	font-family: "Manrope Display";
 	padding: 0;
 	margin-top: 25px;
-	margin-bottom: 0;
+	margin-bottom: 25px;
 	font-size: 250%;
 	text-align: center;
 	color: #ffffff;
@@ -103,7 +109,7 @@ html {
 	position: absolute;
 	top: 2.5%;
 	right: 1%;
-	font-family: "SanFrancisco";
+	font-family: "Manrope Display";
 	border-radius: 25px;
 	-webkit-box-shadow: 0 0 70px -10px rgba(0, 0, 0, 0.2);
 	box-shadow: 0 0 70px -10px rgba(0, 0, 0, 0.2);
@@ -291,7 +297,7 @@ html {
 
 .location {
 	display: inline-block;
-	font-family: "SanFrancisco";
+	font-family: "Red Hat Prominent";
 	margin-top: 10px;
 }
 
@@ -324,18 +330,22 @@ html {
 	margin: 0;
 	font-weight: 700;
 	font-size: 4em;
+	white-space: nowrap;
+    overflow: hidden;
 }
 
 .notif-title {
 	margin: 0;
 	font-weight: 700;
 	font-size: 2.5em;
+	text-overflow: ellipsis;
 }
 
 .notif-description {
 	margin: 0;
 	font-weight: 700;
 	font-size: 1.5em;
+	text-overflow: ellipsis;
 }
 
 .spotify-title {

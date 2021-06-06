@@ -46,6 +46,12 @@ async function fadeOutNotif() {
     }, 15);
 }
 
+function randomInteger(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+}  
+
 const hoursOfDay = {
     "morning": [5, 6, 7, 8, 9, 10, 11],
     "noon": [12],
@@ -53,6 +59,7 @@ const hoursOfDay = {
     "evening": [18, 19, 20, 21],
     "night": [22, 23, 0, 1, 2, 3, 4]
 };
+
 const configuration = window.bridge.information.getConfig();
 const name = configuration.decor.name;
 
@@ -81,11 +88,11 @@ function getGreeting() {
     const birthday = configuration.decor.birthday.toLowerCase().split(" ")
 
     const greetings = {
-        "morning": [`Good morning, ${name}!`, `Rise and shine, ${name}!`, `How's your morning ${name}?`, `Did you have a nice sleep ${name}?`, `When's breakfast, ${name}?`],
-        "noon": [`Howdy, ${name}, how's your lunch been?`, `Lunch-time, ${name}!`, `How was the food, ${name}?`],
-        "afternoon": [`Good afternoon, ${name}!`, `Have a good rest of your day, ${name}!`, `Good afternoon ${name}, when's dinner?`, `Quite hungry, ${name}, what about you?`],
-        "evening": [`Evenin', ${name}. How's your night been?`, `${name}, dinner time!`, `${name}, good evening!`],
-        "night": [`Good night, ${name}. Sleep well!`, `Good night ${name}.`, `Don't let the bed bugs bite, ${name}.`]
+        "morning": [`Rise and shine!`, `Good morning ${name}!`, `How's your morning?`],
+        "noon": [`Noontime!`, `Good mid-day, ${name}!`],
+        "afternoon": [`Good afternoon, ${name}!`, `Nice day out, innit?`],
+        "evening": [`How's your evening ${name}?`],
+        "night": [`Good night, ${name}.`, `Good night!`]
     }
 
     if (hoursOfDay.morning.includes(new Date().getHours())) {
@@ -159,6 +166,24 @@ function getBirthday() {
     }
 };
 
+/**
+ * @param {VibrantPalette} colours The Vibrant.js colour palette to use
+ * @param {Boolean} dark If the colour should be dark or light
+ */
+function randomStyle(colours, dark) {
+    var odd = [1, 3, 5, 7, 9];
+    var even = [2, 4, 6, 8, 10];
+    if (typeof dark !== "boolean") return new TypeError("Type of dark expected was Boolean");
+    const int = randomInteger(1, 10);
+    if (dark) {
+        if (even.includes(int)) return colours.DarkVibrant.hex;
+        if (odd.includes(int)) return colours.DarkMuted.hex;
+    } if (!dark) {
+        if (even.includes(int)) return colours.LightVibrant.hex;
+        if (odd.includes(int)) return colours.LightMuted.hex;
+    };
+};
+
 async function track() {
     const conf = configuration;
     if (conf.media.lastfm.enabled !== true || !conf.media.lastfm.key || !conf.media.lastfm.username) {
@@ -169,10 +194,12 @@ async function track() {
     const artist = track.artist["#text"].slice(0, 33);
     const albumArt = track.image[3]["#text"].replace("300x300", "2048x2048");
     const colours = await Vibrant.from(albumArt).getPalette();
-    document.getElementById("spotifycolour").style.background = `linear-gradient(45.34deg, ${colours.DarkVibrant.hex} 3.5%, ${colours.LightVibrant.hex} 96.5%)`;
+
+    document.getElementById("spotifycolour").style.background = `linear-gradient(45.34deg, ${randomStyle(colours, true)} 3.5%, ${randomStyle(colours, false)} 96.5%)`;
     document.getElementById("lasttitle").innerText = title;
     document.getElementById("lastartist").innerText = artist;
     document.getElementById("albumart").src = albumArt;
+
     console.log(colours)
     console.log(await window.bridge.media.getNewestTrack());
     if (track["@attr"] == undefined) {
@@ -198,6 +225,7 @@ async function weather() {
         units.fc = "F"
         units.unit = "imperial"
     }
+
     fetch(`https://api.openweathermap.org/data/2.5/weather?id=${configuration.openweather.placeid}&appid=${configuration.openweather.key}&units=${units.unit}`)  
     .then(function(resp) { return resp.json() })
     .then(function(data) {
@@ -298,6 +326,8 @@ document.body.style.background = `url(${configuration.decor.background}) no-repe
 window.sendNotification = async function (data) {
     document.getElementById("notif-title").innerText = data.title;
     document.getElementById("notif-description").innerText = data.description;
+    if (data.description.length >= 42) document.getElementById("notif-description").innerText = data.description.substr(0, 41) + "..";
+    if (data.title.length >= 32) document.getElementById("notif-title").innerText = data.title.substr(0, 31) + "..";
     fadeInNotif();
     setTimeout(async function () {
         fadeOutNotif();
