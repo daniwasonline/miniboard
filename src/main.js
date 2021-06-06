@@ -55,7 +55,7 @@ app.on("ready", async function () {
                 console.log("mod.d has loadable modules, creating a new isolated container for confining them..");
                 const isolator = await createIsolator(BrowserWindow);
                 isolator.config = require(path.join(__dirname + "/../config.json"));
-                isolator.loadFile("./static/isolator.html");
+                isolator.loadFile(path.join(__dirname + "/static/isolator.html"));
                 for (const modDirRaw of modDirs) {
                     const modsDir = fs.readdirSync(path.join(__dirname, `/mod.d/${modDirRaw.name}`)).filter(ent => ent == "manifest.mod.o");
                     for (const fi of modsDir) {
