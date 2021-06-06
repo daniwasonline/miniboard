@@ -1,7 +1,8 @@
 const { contextBridge, ipcRenderer, shell } = require("electron");
 const fetch = require("node-fetch");
 const child = require("child_process");
-const pkgconf = require("./config.json");
+const path = require("path");
+const pkgconf = require(path.join(__dirname + "/../config.json"));
 const processExists = require("process-exists");
 const os = require("os");
 
@@ -45,6 +46,13 @@ contextBridge.exposeInMainWorld(
             },
             openAppFromNetflix: async () => {
                 ipcRenderer.send("showApp");
+            }
+        },
+
+        modules: {
+            sendNotification: async function (data) {
+                if (typeof data !== "object") return new TypeError("Type of data was not Object!");
+                ipcRenderer.send("notification", { title: data.title, description: data.description });
             }
         }
     }

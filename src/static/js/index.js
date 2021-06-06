@@ -22,6 +22,30 @@ const crazyArray = [
     }
 ];
 
+async function fadeInNotif() {
+    var fade = document.getElementById("notif");
+    var opacity = 0.01;
+    var intervalID = setInterval(function() {
+        if (opacity <= 0) return clearInterval(intervalID);
+        if (opacity < 1) {
+            opacity = opacity + 0.01
+            fade.style.opacity = opacity;
+        }
+    }, 15);
+}
+
+async function fadeOutNotif() {
+    var fade = document.getElementById("notif");
+    var opacity = 1;
+    var intervalID = setInterval(function() {
+        if (opacity <= 0) return clearInterval(intervalID);
+        if (opacity !== 0) {
+            opacity = opacity - 0.01
+            fade.style.opacity = opacity;
+        }
+    }, 15);
+}
+
 const hoursOfDay = {
     "morning": [5, 6, 7, 8, 9, 10, 11],
     "noon": [12],
@@ -29,8 +53,8 @@ const hoursOfDay = {
     "evening": [18, 19, 20, 21],
     "night": [22, 23, 0, 1, 2, 3, 4]
 };
-const configuration = window.bridge.information.getConfig()
-const name = configuration.decor.name
+const configuration = window.bridge.information.getConfig();
+const name = configuration.decor.name;
 
 function pickTz() {
     if (configuration.decor["12hr"] == true) {
@@ -136,16 +160,20 @@ function getBirthday() {
 };
 
 async function track() {
-    const conf = await (await fetch("../config.json")).json();
+    const conf = configuration;
     if (conf.media.lastfm.enabled !== true || !conf.media.lastfm.key || !conf.media.lastfm.username) {
         return document.getElementById("spotify").style.display = "none";
     };
     const track = await window.bridge.media.getNewestTrack();
     const title = track.name.slice(0, 23);
     const artist = track.artist["#text"].slice(0, 33);
+    const albumArt = track.image[3]["#text"].replace("300x300", "2048x2048");
+    const colours = await Vibrant.from(albumArt).getPalette();
+    document.getElementById("spotifycolour").style.background = `linear-gradient(45.34deg, ${colours.DarkVibrant.hex} 3.5%, ${colours.LightVibrant.hex} 96.5%)`;
     document.getElementById("lasttitle").innerText = title;
     document.getElementById("lastartist").innerText = artist;
-    document.getElementById("albumart").src = track.image[3]["#text"].replace("300x300", "2048x2048");
+    document.getElementById("albumart").src = albumArt;
+    console.log(colours)
     console.log(await window.bridge.media.getNewestTrack());
     if (track["@attr"] == undefined) {
         return document.getElementById("spotify").style.display = "none";
@@ -239,7 +267,7 @@ setInterval(getDDMMYY, 10000);
 setInterval(findHolidays, 1000);
 setInterval(weather, 120000);
 setInterval(getBirthday, 120000);
-setInterval(track, 15000)
+setInterval(track, 10000)
 document.body.style.background = `url(${configuration.decor.background}) no-repeat center center`;
 
 (async function() {
@@ -266,3 +294,12 @@ document.body.style.background = `url(${configuration.decor.background}) no-repe
         mouseTimer = window.setTimeout(disappearCursor, 5000);
     }, 5000)
 })();
+
+window.sendNotification = async function (data) {
+    document.getElementById("notif-title").innerText = data.title;
+    document.getElementById("notif-description").innerText = data.description;
+    fadeInNotif();
+    setTimeout(async function () {
+        fadeOutNotif();
+    }, 8000);
+};

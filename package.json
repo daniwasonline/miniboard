@@ -1,13 +1,13 @@
 {
     "name": "miniboard",
-    "version": "1.4.0",
+    "version": "2.0.0",
     "main": "main.js",
     "contributors": [
         "Dannington",
         "bren"
     ],
     "scripts": {
-        "start": "npx electron ."
+        "start": "npx electron ./src/main.js"
     },
     "dependencies": {
         "@cliqz/adblocker-electron": "^1.19.0",

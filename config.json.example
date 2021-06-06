@@ -26,5 +26,11 @@
         },
         "netflix": false
     },
+    "modules": {
+        "notificationApi": {
+            "enabled": false,
+            "authTokens": ["Token1", "Token2"]
+        }
+    }
     "process_manager": false
 }

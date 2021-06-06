@@ -7,6 +7,11 @@
         <br>
         <button onclick="window.bridge.media.openAppFromNetflix()">Return to Miniboard</button>
         <script>
-            window.bridge.media.openNetflix();
+            const configuration = window.bridge.information.getConfig();
+            if (!configuration.media.netflix) {
+                document.location.href = "./misc/netflix-disabled.html";
+            } else {
+                window.bridge.media.openNetflix();
+            }
         </script>
     </body>

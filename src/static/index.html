@@ -1,12 +1,12 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="style.css">
-        <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/node-vibrant@3.2.1-alpha.1/dist/vibrant.min.js"></script>
         <title>Miniboard</title>
     </head>
     <body>
         <div class="bg"></div>
-        <div class="container" id="weather">
+        <div class="weather-outer-container" id="weather">
             <div class="weather-side">
                 <div class="weather-gradient"></div>
                 <div class="weather-container">
@@ -18,9 +18,19 @@
             </div>  
         </div>
 
-        <div class="spotify-maincontainer" id="spotify">
+        <div class="notification-container" style="opacity: 0;" id="notif">
+            <div class="notification-side"></div>
+                <div class="notification-gradient"></div>
+                <div class="weather-container">
+                    <h1 class="notif-title" id="notif-title">Example Title</h1>
+                    <h1 class="notif-description" id="notif-description">Example Description</h1>
+                </div>
+            </div>  
+        </div>
+
+        <div class="spotify-maincontainer" id="spotify" style="display: none">
             <div class="spotify-side">
-                <div class="spotify-gradient"></div>
+                <div class="spotify-gradient" id="spotifycolour"></div>
                 <div class="spotify-container">
                     <img class="spotify-art" id="albumart" width="156" height="156" src="./assets/defaultalbumart.jpg">
                     <h1 class="spotify-title" id="lasttitle">Loading your last song</h1>
@@ -34,7 +44,7 @@
             <br>
             <h6 id="greeting" class="greeting"></h6>
             <br>
-            <h6 id="daynamemid" class="time"></h6>
+            <h6 id="daynamemid" class="time timedate"></h6>
         </div>
         <div class="linkcontainer">
             <a href="spotify.html"><img id="spotifybtn" src="./assets/spotify.png"></a>
@@ -43,6 +53,6 @@
             <a href="index.html"><img class="logolink" id="refresh" src="./assets/refresh.gif"><img class="logolink" id="refresh-static" src="./assets/refresh.png"></a>
             <a href="#" onclick="window.close()"><img class="logolink" id="exit" src="./assets/exit.gif"><img class="logolink" id="exit-static" src="./assets/exit.png"></a>
         </div>
-        <script src="script.js"></script>
+        <script src="js/index.js"></script>
     </body>
 </html>

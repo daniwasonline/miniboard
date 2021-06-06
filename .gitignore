@@ -106,3 +106,7 @@ dist
 # Other files related to Miniboard
 config.json
 package-lock.json
+yarn.lock
+
+# Dannington's stuff, ykyk
+dannington/

@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+const express = require("express");
+const app = express();
+
+module.exports = async function (context) {
+    const config = context.config;
+    if (context.config.modules.notificationApi.enabled == false) return console.log("Unloading Miniboard Notification Service.. (Reason: Not enabled in configuration)");
+    console.log("MNS || Loaded the Miniboard Notification Service.");
+    app.get("/notify", async function (req, res, next) {
+        if (!req.headers["x-auth"]) return res.status(401).send({ status: 401, response: "An authentication token must be provided" });
+        if (!context.config.modules.notificationApi.authTokens.includes(req.headers["x-auth"])) return res.status(403).send({ status: 403, response: "Invalid authentication token" });
+        if (!req.headers["notify-title"] || !req.headers["notify-content"]) return res.status(400).send({ status: 400, response: "Missing headers (notify-title, notify-content required)" });
+        context.webContents.executeJavaScript(`window.bridge.modules.sendNotification({ title: "${req.headers["notify-title"]}", description: "${req.headers["notify-content"]}" })`);
+        return res.status(200).send({ status: 200, response: "Notification sent" });
+    });
+
+    app.listen(8008);
+};
