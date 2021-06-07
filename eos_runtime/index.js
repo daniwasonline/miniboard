@@ -48,14 +48,11 @@ async function runtime() {
 
             checkApplicationDepFile(p);
 
-            process.stdout.clearLine();
-            process.stdout.cursorTo(0);
-            process.stdout.write(`[${ind}] ` + `Loaded: ${p.split("/")[p.split("/").length - 1]}` );
+            console.log(`Loaded: ${p.split("/")[p.split("/").length - 1]}` );
 
             depNum++;
     });
 
-    process.stdout.clearLine();
     console.log("\nChecking if the app's dependencies are installed..");
 
     var modNum = 0;
@@ -67,13 +64,10 @@ async function runtime() {
 
             checkApplicationDepMod(mod);
 
-            process.stdout.clearLine();
-            process.stdout.cursorTo(0);
-            process.stdout.write(`[${ind}] ` + `Loaded: ${mod.split("/")[mod.split("/").length - 1]}` );
+            process.stdout.write(`Loaded: ${mod.split("/")[mod.split("/").length - 1]}` );
 
             modNum++;
     });
-    process.stdout.clearLine();
     process.stdout.write("\nRunning app's initialisation script..");
     process.eosRunning = true;
     configuration.runApp();
