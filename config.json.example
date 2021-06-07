@@ -3,7 +3,13 @@
         "key": "",
         "placeid": "",
         "units": 0,
-        "//UNITS": "Use 0 for Celsius and 1 for Fahrenheit"
+        "locationHidden": false,
+        "locationOverride": {
+            "enabled": true,
+            "location": "LOCATION HERE"
+        },
+        "//UNITS": "Use 0 for Celsius and 1 for Fahrenheit",
+        "//OVERRIDE": "Use if you want to put text in place of the actual location; prioritised over Location Hidden"
     },
     "decor": {
         "background": "https://wallpaperaccess.com/full/869923.gif",

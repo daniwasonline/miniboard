@@ -46,6 +46,46 @@ async function fadeOutNotif() {
     }, 15);
 }
 
+/**
+ * 
+ * @param {HTMLDOMIdentifier} id A DOM element ID to fade in.
+ * 
+ */
+async function fadeIn(id) {
+    var fade = document.getElementById(id);
+    var opacity = 0.01;
+    var intervalID = setInterval(function() {
+        if (opacity <= 0) return clearInterval(intervalID);
+        if (opacity < 1) {
+            opacity = opacity + 0.01
+            fade.style.opacity = opacity;
+        }
+    }, 15);
+}
+
+/**
+ * 
+ * @param {HTMLDOMIdentifier} id A DOM element ID to fade out. 
+ * 
+ */
+async function fadeOut(id) {
+    var fade = document.getElementById(id);
+    var opacity = 1;
+    var intervalID = setInterval(function() {
+        if (opacity <= 0) return clearInterval(intervalID);
+        if (opacity !== 0) {
+            opacity = opacity - 0.01
+            fade.style.opacity = opacity;
+        }
+    }, 15);
+}
+
+/**
+ * 
+ * @param {Number} min The lowest integer that should be generated.
+ * @param {Number} max The highest integer that should be generated. 
+ * @returns {Number} The random integer.
+ */
 function randomInteger(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -70,10 +110,6 @@ function pickTz() {
         return new Date().toLocaleTimeString("en-GB").replace(/(.*)\D\d+/, '$1');
     }
 };
-
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
 
 function getTime() {
     var d = pickTz();
@@ -190,24 +226,49 @@ async function track() {
         return document.getElementById("spotify").style.display = "none";
     };
     const track = await window.bridge.media.getNewestTrack();
+    const spotifycolournext = document.getElementById("spotifycolournext");
+    const spotifycolour = document.getElementById("spotifycolour");
+
+    if (track["@attr"] == undefined) {
+        if (document.getElementById("spotify").style.opacity <= 0) return;
+        fadeOut("spotify");
+        fadeOut("spotifycolour");
+        return fadeOut("spotifycolournext");
+    };
+
+    
     var title = track.name.slice(0, 28);
     var artist = track.artist["#text"].slice(0, 33);
     if (track.name.length >= 29) title = title + "...";
     if (track.artist["#text"].length >= 34) artist = artist + "...";
     const albumArt = track.image[3]["#text"].replace("300x300", "2048x2048");
     const colours = await Vibrant.from(albumArt).getPalette();
+    const dark = randomStyle(colours, true)
+    const light = randomStyle(colours, false)
+    
+    spotifycolournext.style.background = `linear-gradient(45.34deg, ${dark} 3.5%, ${light} 96.5%)`;
+    if (spotifycolour.style.background == "") spotifycolour.style.background = `linear-gradient(45.34deg, ${dark} 3.5%, ${light} 96.5%)`;
+    if (spotifycolour.style.opacity >= 1) {
+        if (spotifycolournext.style.background == spotifycolour.style.background) return;
+        fadeOut("spotifycolour");
+        fadeIn("spotifycolournext");
+        spotifycolour.style.background = `linear-gradient(45.34deg, ${dark} 3.5%, ${light} 96.5%)`;
+        setTimeout(function () {
+            spotifycolournext.style.opacity = 0;
+            spotifycolour.style.opacity = 1;
+        }, 3000);
+    };
 
-    document.getElementById("spotifycolour").style.background = `linear-gradient(45.34deg, ${randomStyle(colours, true)} 3.5%, ${randomStyle(colours, false)} 96.5%)`;
+
     document.getElementById("lasttitle").innerText = title;
     document.getElementById("lastartist").innerText = artist;
     document.getElementById("albumart").src = albumArt;
 
-    console.log(colours)
-    console.log(await window.bridge.media.getNewestTrack());
-    if (track["@attr"] == undefined) {
-        return document.getElementById("spotify").style.display = "none";
-    } if (track["@attr"] !== undefined) {
-        return document.getElementById("spotify").style.display = "block";
+    if (track["@attr"] !== undefined) {
+        if (document.getElementById("spotify").style.opacity == 1) return;
+        document.getElementById("spotify").style.display = "block";
+        fadeIn("spotify");
+        fadeIn("spotifycolour");
     };
 };
 
@@ -232,50 +293,65 @@ async function weather() {
     .then(function(resp) { return resp.json() })
     .then(function(data) {
         const icon = document.getElementsByClassName("weather-icon")[0]
-        document.getElementById("place").innerText = `${data.name}, ${data.sys.country}`
+
+        switch (configuration.openweather.locationHidden) {
+            case true:
+                document.getElementById("place").innerText = `Location hidden`;
+                break;
+
+            case false:
+                document.getElementById("place").innerText = `${data.name}, ${data.sys.country}`;
+                break;
+            default:
+                document.getElementById("place").innerText = `${data.name}, ${data.sys.country}`;
+                break;
+        }
+
+        if (configuration.openweather.locationOverride.enabled) document.getElementById("place").innerText = configuration.openweather.locationOverride.location;
+
         var temperature = Math.round(parseFloat(data.main.temp));
-        var conditions = data.weather[0].description
+        var conditions = data.weather[0].description;
         document.getElementById('temp').innerHTML = temperature + `&deg;${units.fc}`;
-        document.getElementById('weatherdesc').innerHTML = capitalizeFirstLetter(conditions);
+        document.getElementById('weatherdesc').innerHTML = conditions.split("")[0].toUpperCase() + conditions.slice(1);
 
 
 
         if (hoursOfDay.morning.includes(new Date().getHours())) {
-            if (conditions == "clear sky") icon.src = "./assets/sunrise.png"
-            if (conditions.includes("clouds")) icon.src = "./assets/suncloud.png"
-            if (conditions.includes("rain")) icon.src = "./assets/rain.png"
-            if (conditions == "snow") icon.src = "./assets/snow.png"
-            if (conditions == "thunderstorm") icon.src = "./assets/storm.png"
-            if (conditions == "mist") icon.src = "./assets/mist.png"
+            if (conditions == "clear sky") icon.src = "./assets/sunrise.png";
+            if (conditions.includes("clouds")) icon.src = "./assets/suncloud.png";
+            if (conditions.includes("rain")) icon.src = "./assets/rain.png";
+            if (conditions == "snow") icon.src = "./assets/snow.png";
+            if (conditions == "thunderstorm") icon.src = "./assets/storm.png";
+            if (conditions == "mist") icon.src = "./assets/mist.png";
         } if (hoursOfDay.noon.includes(new Date().getHours())) {
-            if (conditions == "clear sky") icon.src = "./assets/sun.png"
-            if (conditions.includes("clouds")) icon.src = "./assets/suncloud.png"
-            if (conditions.includes("rain")) icon.src = "./assets/rain.png"
-            if (conditions == "snow") icon.src = "./assets/snow.png"
-            if (conditions == "thunderstorm") icon.src = "./assets/storm.png"
-            if (conditions == "mist") icon.src = "./assets/mist.png"
+            if (conditions == "clear sky") icon.src = "./assets/sun.png";
+            if (conditions.includes("clouds")) icon.src = "./assets/suncloud.png";
+            if (conditions.includes("rain")) icon.src = "./assets/rain.png";
+            if (conditions == "snow") icon.src = "./assets/snow.png";
+            if (conditions == "thunderstorm") icon.src = "./assets/storm.png";
+            if (conditions == "mist") icon.src = "./assets/mist.png";
         } if (hoursOfDay.afternoon.includes(new Date().getHours())) {
-            if (conditions == "clear sky") icon.src = "./assets/sun.png"
-            if (conditions.includes("clouds")) icon.src = "./assets/suncloud.png"
-            if (conditions.includes("rain")) icon.src = "./assets/rain.png"
-            if (conditions == "snow") icon.src = "./assets/snow.png"
-            if (conditions == "thunderstorm") icon.src = "./assets/storm.png"
-            if (conditions == "mist") icon.src = "./assets/mist.png"
+            if (conditions == "clear sky") icon.src = "./assets/sun.png";
+            if (conditions.includes("clouds")) icon.src = "./assets/suncloud.png";
+            if (conditions.includes("rain")) icon.src = "./assets/rain.png";
+            if (conditions == "snow") icon.src = "./assets/snow.png";
+            if (conditions == "thunderstorm") icon.src = "./assets/storm.png";
+            if (conditions == "mist") icon.src = "./assets/mist.png";
         } if (hoursOfDay.evening.includes(new Date().getHours())) {
-            if (conditions == "clear sky") icon.src = "./assets/sunset.png"
-            if (conditions.includes("clouds")) icon.src = "./assets/suncloud.png"
-            if (conditions.includes("rain")) icon.src = "./assets/rain.png"
-            if (conditions == "snow") icon.src = "./assets/snow.png"
-            if (conditions == "thunderstorm") icon.src = "./assets/storm.png"
-            if (conditions == "mist") icon.src = "./assets/mist.png"
+            if (conditions == "clear sky") icon.src = "./assets/sunset.png";
+            if (conditions.includes("clouds")) icon.src = "./assets/suncloud.png";
+            if (conditions.includes("rain")) icon.src = "./assets/rain.png";
+            if (conditions == "snow") icon.src = "./assets/snow.png";
+            if (conditions == "thunderstorm") icon.src = "./assets/storm.png";
+            if (conditions == "mist") icon.src = "./assets/mist.png";
         } if (hoursOfDay.night.includes(new Date().getHours())) {
-            if (conditions == "clear sky") icon.src = "./assets/moon.png"
-            if (conditions.includes("clouds")) icon.src = "./assets/mooncloud.png"
-            if (conditions.includes("rain")) icon.src = "./assets/rain.png"
-            if (conditions == "snow") icon.src = "./assets/snow.png"
-            if (conditions == "thunderstorm") icon.src = "./assets/storm.png"
-            if (conditions == "mist") icon.src = "./assets/mist.png"
-        }
+            if (conditions == "clear sky") icon.src = "./assets/moon.png";
+            if (conditions.includes("clouds")) icon.src = "./assets/mooncloud.png";
+            if (conditions.includes("rain")) icon.src = "./assets/rain.png";
+            if (conditions == "snow") icon.src = "./assets/snow.png";
+            if (conditions == "thunderstorm") icon.src = "./assets/storm.png";
+            if (conditions == "mist") icon.src = "./assets/mist.png";
+        };
     })
     .catch(e => console.log(e));
 }
@@ -290,8 +366,8 @@ window.onload = function() {
     document.querySelector("body").style.cursor = "auto";
     findHolidays();
 
-    if (!configuration.media.youtube.enabled) document.getElementById("youtube").style.visibility = "hidden";
-    if (!configuration.media.netflix) document.getElementById("netflix").style.visibility = "hidden";
+    if (configuration.media.youtube.enabled) document.getElementById("youtube").style.visibility = "visible";
+    if (configuration.media.netflix) document.getElementById("netflix").style.visibility = "visible";
 }
 
 setInterval(getTime, 1000);
@@ -300,7 +376,8 @@ setInterval(getDDMMYY, 10000);
 setInterval(findHolidays, 1000);
 setInterval(weather, 120000);
 setInterval(getBirthday, 120000);
-setInterval(track, 15000);
+setInterval(track, 7500);
+
 document.body.style.background = `url(${configuration.decor.background}) no-repeat center center`;
 
 (async function() {
@@ -328,6 +405,10 @@ document.body.style.background = `url(${configuration.decor.background}) no-repe
     }, 5000)
 })();
 
+
+/**
+ * @param {Notification} data The notification data that is to be printed to the window.
+ */
 window.sendNotification = async function (data) {
     document.getElementById("notif-title").innerText = data.title;
     document.getElementById("notif-description").innerText = data.description;

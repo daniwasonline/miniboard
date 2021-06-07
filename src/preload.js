@@ -54,6 +54,12 @@ contextBridge.exposeInMainWorld(
                 if (typeof data !== "object") return new TypeError("Type of data was not Object!");
                 ipcRenderer.send("notification", { title: data.title, description: data.description });
             }
+        },
+
+        core: {
+            close: function () {
+                ipcRenderer.send("exitApp");
+            }
         }
     }
 );

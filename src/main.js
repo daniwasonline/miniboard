@@ -4,8 +4,13 @@ const createIsolator = require("./util/createIsolator.js");
 const fs = require("fs");
 const fetch = require("cross-fetch");
 const path = require("path");
-const { createInflateRaw } = require("zlib");
-app.disableHardwareAcceleration();
+const chalk = require("chalk");
+
+if (process.eosRunning != true) {
+    console.log(chalk.blue("MCR (Miniboard Core Runtime) returned the following error: ") + chalk.red("Miniboard cannot be run directly from the src folder. You must use the main.js file in the root of the Miniboard repository. The file should be located in the directory above this one."));
+    return process.exit(1);
+}
+
 app.on("ready", async function () {
     const window = new BrowserWindow({ width: 1680, height: 1050, minWidth: 512, minHeight: 512, frame: true, show: true, webPreferences: {
         nodeIntegration: false,
@@ -28,6 +33,10 @@ app.on("ready", async function () {
     ipcMain.on('showApp', (e) => {
         window.loadFile(path.join(__dirname + "/static/index.html"));
         window.setFullScreen(true);
+    });
+
+    ipcMain.on('exitApp', (e) => {
+        app.exit();
     });
 
     ipcMain.on("notification", async (_, e) => {
@@ -66,7 +75,7 @@ app.on("ready", async function () {
                                 console.log(`Module #${modsInt} || Module ${miniboardModule.name} is being loaded..`);
                                 miniboardModule.run(isolator);
                             } catch (e) {
-                                console.log(`An error occured whilst attempting to execute ${fi} (${modsInt}/${modsDir.length}): ${e}`);
+                                console.log(chalk.blue(`${miniboardModule.name} returned the following error: ${chalk.red(e)}`));
                             };
                         };
                     };

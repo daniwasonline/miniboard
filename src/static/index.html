@@ -4,13 +4,13 @@
         <script src="https://cdn.jsdelivr.net/npm/node-vibrant@3.2.1-alpha.1/dist/vibrant.min.js"></script>
         <title>Miniboard</title>
     </head>
-    <body>
+    <body draggable="false" style="user-select: none; -moz-user-select: none; -webkit-user-select: none;"> 
         <div class="bg"></div>
         <div class="weather-outer-container" id="weather">
             <div class="weather-side">
                 <div class="weather-gradient"></div>
                 <div class="weather-container">
-                    <img class="weather-icon" id="icon">
+                    <img class="weather-icon" id="icon" draggable="false">
                     <h1 id="temp" class="weather-temp"></h1>
                     <h3 class="weather-desc" id="weatherdesc"></h3>
                     <img src="assets/arrowlocation.png" class="location-icon" data-feather="map-pin"></i><span class="location" id="place"></span>
@@ -28,29 +28,30 @@
             </div>  
         </div>
 
-        <div class="spotify-maincontainer" id="spotify" style="display: none">
+        <div class="spotify-maincontainer" id="spotify" style="opacity: 0; display: none;">
             <div class="spotify-side">
-                <div class="spotify-gradient" id="spotifycolour"></div>
+                <div class="spotify-gradient" id="spotifycolour" style="opacity: 0;" draggable="false"></div>
+                <div class="spotify-gradient" id="spotifycolournext" style="opacity: 0;" draggable="false"></div>
                 <div class="spotify-container">
-                    <img class="spotify-art" id="albumart" width="156" height="156" src="./assets/defaultalbumart.jpg">
-                    <h1 class="spotify-title" id="lasttitle">Loading your last song</h1>
-                    <h1 class="spotify-artist" id="lastartist">Loading your last song's artist..</h1>
+                    <img class="spotify-art" id="albumart" draggable="false" height="177.5" src="./assets/defaultalbumart.jpg">
+                    <h1 class="spotify-title" id="lasttitle" draggable="false">Loading your last song</h1>
+                    <h1 class="spotify-artist" id="lastartist" draggable="false">Loading your last song's artist..</h1>
                 </div>
             </div>
         </div>
 
         <div class="centerDiv">
-            <h1 id="timeJS" class="time"></h1>
+            <h1 id="timeJS" class="time" draggable="false"></h1>
             <br>
-            <h6 id="greeting" class="greeting"></h6>
+            <h6 id="greeting" class="greeting" draggable="false"></h6>
             <br>
-            <h6 id="daynamemid" class="time timedate"></h6>
+            <h6 id="daynamemid" class="time timedate" draggable="false"></h6>
         </div>
         <div class="linkcontainer">
-            <a href="netflix.html"><img id="netflix" src="./assets/netflix.png"></img></a>
-            <a href="youtube.html"><img class="logolink" id="youtube" src="./assets/youtube.png"></a>
-            <a href="index.html"><img class="logolink" id="refresh" src="./assets/refresh.gif"><img class="logolink" id="refresh-static" src="./assets/refresh.png"></a>
-            <a href="#" onclick="window.close()"><img class="logolink" id="exit" src="./assets/exit.gif"><img class="logolink" id="exit-static" src="./assets/exit.png"></a>
+            <a href="netflix.html"><img id="netflix" src="./assets/netflix.png" style="visibility: hidden;" draggable="false"></img></a>
+            <a href="youtube.html"><img class="logolink" id="youtube" src="./assets/youtube.png" style="visibility: hidden;" draggable="false"></a>
+            <a href="index.html"><img class="logolink" id="refresh" src="./assets/refresh.gif" draggable="false"><img class="logolink" id="refresh-static" src="./assets/refresh.png" draggable="false"></a>
+            <a href="#" onclick="window.bridge.core.close()"><img class="logolink" id="exit" src="./assets/exit.gif"><img class="logolink" id="exit-static" src="./assets/exit.png" draggable="false"></a>
         </div>
         <script src="js/index.js"></script>
     </body>

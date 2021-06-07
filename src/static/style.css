@@ -142,7 +142,7 @@ html {
 	box-shadow: 0 0 70px -10px rgba(0, 0, 0, 0.2);
 	background-color: #222831;
 	color: #ffffff;
-	height: 275px;
+	height: 300px;
 }
 
 .weather-side {
@@ -150,7 +150,7 @@ html {
 	height: 100%;
 	border-radius: 25px;
 
-	width: 300px;
+	width: 240px;
 	-webkit-box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.2);
 	box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.2);
 	-webkit-transition: -webkit-transform 300ms ease;
@@ -195,8 +195,7 @@ html {
 	position: relative;
 	height: 100%;
 	border-radius: 25px;
-
-	width: 300px;
+	width: 235px;
 	-webkit-box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.2);
 	box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.2);
 	-webkit-transition: -webkit-transform 300ms ease;
@@ -313,11 +312,12 @@ html {
 	position: absolute;
 	bottom: 25px;
 	left: 25px;
+	align-items: center;
 }
 
 .spotify-container {
 	position: absolute;
-	bottom: 25px;
+	top: 25px;
 	left: 25px;
 }
 
@@ -327,11 +327,13 @@ html {
 }
 
 .weather-temp {
-	margin: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-right: 0;
+	margin-left: 0;
 	font-weight: 700;
 	font-size: 4em;
 	white-space: nowrap;
-    overflow: hidden;
 }
 
 .notif-title {
@@ -359,6 +361,7 @@ html {
 	border-radius: 10%;
 	font-weight: 700;
 	font-size: 24px;
+	margin-bottom: -4%;
 }
 
 .spotify-artist {
