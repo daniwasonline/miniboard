@@ -38,7 +38,7 @@ async function runtime() {
 
 
 
-    console.log("Checking for core files..");
+    console.log("\nChecking for core files..");
 
     var depNum = 0;
     configuration.dependentFiles.forEach(async function (p) {
@@ -48,7 +48,7 @@ async function runtime() {
 
             checkApplicationDepFile(p);
 
-            console.log(`Loaded: ${p.split("/")[p.split("/").length - 1]}` );
+            console.log(`Found: ${p.split("/")[p.split("/").length - 1]}`);
 
             depNum++;
     });
@@ -64,7 +64,7 @@ async function runtime() {
 
             checkApplicationDepMod(mod);
 
-            process.stdout.write(`Loaded: ${mod.split("/")[mod.split("/").length - 1]}` );
+            console.log(`Found: ${mod.split("/")[mod.split("/").length - 1]}`);
 
             modNum++;
     });
