@@ -1,4 +1,4 @@
-![Add Miniboard](miniboard.jpg)
+![Add Miniboard](doc/miniboard.png)
 # Miniboard
 A program written in Node.js using the Electron framework to display the weather, the time, and the date. It also allows you to use the version of YouTube used on Smart TVs (not to be confused with YouTube TV, the subscription TV service).
 

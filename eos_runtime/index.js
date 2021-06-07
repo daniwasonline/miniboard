@@ -68,7 +68,7 @@ async function runtime() {
 
             modNum++;
     });
-    process.stdout.write("\nRunning app's initialisation script..");
+    process.stdout.write("\nRunning app's initialisation script..\n");
     process.eosRunning = true;
     configuration.runApp();
 };
