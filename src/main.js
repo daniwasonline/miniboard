@@ -20,6 +20,7 @@ app.on("ready", async function () {
         preload: path.join(__dirname + "/preload.js")
     }});
     window.loadFile(path.join(__dirname + "/static/index.html"));
+    console.clear();
     window.setFullScreen(true);
     //window.toggleDevTools()
     ElectronBlocker.fromPrebuiltAdsAndTracking(fetch).then((blocker) => {
@@ -54,7 +55,6 @@ app.on("ready", async function () {
 
     // Load external modules if needed
     setTimeout(async function () {
-        console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         console.log ("Module #0 || Module mod.init is being loaded..");
         if (fs.existsSync(path.join(__dirname + "/mod.d"))) {
             const modDirs = fs.readdirSync(path.join(__dirname, `/mod.d/`), { withFileTypes: true }).filter(ent => ent.isDirectory());
