@@ -23,7 +23,6 @@ async function runtime() {
     };
 
     const { checkApplicationDepMod, checkApplicationDepFile, loadConfiguration } = require(path.join(__dirname + "/lib/module.js"));
-    const { notFound } = require(path.join(__dirname + "/lib/errors.js"));
 
     if (process.eos_conf_path == undefined) {
         console.log(`An Eos runtime configuration path was not found. Checking if ../eos.conf.js exists..`);
