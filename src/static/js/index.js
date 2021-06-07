@@ -92,6 +92,20 @@ function randomInteger(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }  
 
+/**
+ * 
+ * @param {HTMLDOMIdentifier} id The DOM ID for the element that should have its font changed
+ * @param {*} font The name of the font
+ * @returns The font name passed
+ */
+function loadFonts(id, font) {
+    const element = document.getElementById(id);
+
+    element.style.fontFamily = font;
+
+    return font;
+};
+
 const hoursOfDay = {
     "morning": [5, 6, 7, 8, 9, 10, 11],
     "noon": [12],
@@ -363,9 +377,10 @@ window.onload = function() {
     getGreeting();
     getBirthday();
     track();
-    document.querySelector("body").style.cursor = "auto";
     findHolidays();
+    setFonts();
 
+    document.querySelector("body").style.cursor = "auto";
     if (configuration.media.youtube.enabled) document.getElementById("youtube").style.visibility = "visible";
     if (configuration.media.netflix) document.getElementById("netflix").style.visibility = "visible";
 }
@@ -402,7 +417,7 @@ document.body.style.background = `url(${configuration.decor.background}) no-repe
 
     setTimeout(function() {
         mouseTimer = window.setTimeout(disappearCursor, 5000);
-    }, 5000)
+    }, 5000);
 })();
 
 
@@ -418,4 +433,20 @@ window.sendNotification = async function (data) {
     setTimeout(async function () {
         fadeOutNotif();
     }, 8000);
+};
+
+function setFonts() {
+    const fontConf = window.bridge.information.getConfig().decor.fonts;
+    if (fontConf.time.enabled) loadFonts("timeJS", fontConf.time.font);
+    if (fontConf.greeting.enabled) loadFonts("greeting", fontConf.greeting.font);
+    if (fontConf.date.enabled) loadFonts("daynamemid", fontConf.date.font);
+    if (fontConf.temperature.enabled) loadFonts("temp", fontConf.temperature.font);
+    if (fontConf.UIElement.enabled) {
+        loadFonts("place", fontConf.UIElement.font);
+        loadFonts("weatherdesc", fontConf.UIElement.font);
+        loadFonts("notif-title", fontConf.UIElement.font);
+        loadFonts("notif-description", fontConf.UIElement.font);
+        loadFonts("lasttitle", fontConf.UIElement.font);
+        loadFonts("lastartist", fontConf.UIElement.font);
+    };
 };
