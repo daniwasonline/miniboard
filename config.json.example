@@ -39,7 +39,8 @@
             "UIElement": {
                 "enabled": false,
                 "font": "Google Sans"
-            }
+            },
+            "//NOTE": "The fonts used MUST be installed locally on your system before using them in Miniboard."
         }
     },
     "media": {
