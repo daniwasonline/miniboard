@@ -18,7 +18,30 @@
         "//BIRTHDAY": "BIRTHDAY MUST BE IN DD/MM FORMAT (example: 9 February)",
         "12hr": false,
         "holidays": true,
-        "crazyholidays": false
+        "crazyholidays": false,
+        "fonts": {
+            "time": {
+                "enabled": false,
+                "font": "Google Sans"
+            },
+            "greeting": {
+                "enabled": false,
+                "font": "Google Sans"
+            },
+            "date": {
+                "enabled": false,
+                "font": "Google Sans"
+            },
+            "temperature": {
+                "enabled": false,
+                "font": "Google Sans"
+            },
+            "UIElement": {
+                "enabled": false,
+                "font": "Google Sans"
+            },
+            "//NOTE": "The fonts used MUST be installed locally on your system before using them in Miniboard."
+        }
     },
     "media": {
         "youtube": {
