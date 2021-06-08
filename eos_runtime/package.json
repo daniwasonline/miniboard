@@ -1,0 +1,13 @@
+{
+  "name": "eos",
+  "version": "2.0.1",
+  "description": "A pre-initiation runtime for Node.js that automatically checks for dependencies before running apps.",
+  "main": "index.js",
+  "repository": "https://github.com/Dannnington/eos-runtime",
+  "author": "Daniel Hyders",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "esm": "^3.2.25"
+  }
+}

@@ -1,6 +1,21 @@
 const fs = require("fs");
 const path = require("path");
 
+const eosFunctions = {
+    /**
+     * Loads a file, and if ESM is enabled, it will be loaded under ESM.
+     * @param {FilePath} file The path to the file that should be loaded.
+     */
+    load: async function (file) {
+        if (!process.eosConfiguration.runtimeOptions.esm) {
+            require(file);
+        } if (process.eosConfiguration.runtimeOptions.esm) {
+            process.eosEsmFile = file;
+            require(path.join(__dirname + "/lib/esm_loader"));
+        };
+    }
+};
+
 async function runtime() {
     VERSION="2.0.0";
 
@@ -34,7 +49,7 @@ async function runtime() {
     };
 
     const configuration = loadConfiguration(process.eos_conf_path);
-
+    process.eosConfiguration = configuration;
 
 
     console.log("\nChecking for core files..");
@@ -69,7 +84,7 @@ async function runtime() {
     });
     process.stdout.write("\nRunning app's initialisation script..\n");
     process.eosRunning = true;
-    configuration.runApp();
+    configuration.runApp(eosFunctions);
 };
 
 module.exports = { runtime };

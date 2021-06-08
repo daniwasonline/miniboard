@@ -1,0 +1,30 @@
+#!/usr/bin/env node
+
+// CommonJS modules are supported.
+
+/**
+ * @param {SchemaVersion} schema The version of the schema.
+ * @param {EosName} name The name of the app that Eos is pre-loading.
+ * @param {PackageManifest} manifest The path to the NPM/Yarn package.json file.
+ * @param {Array} dependentFiles An array of dependent files.
+ * @param {RuntimeOptions} runtimeOptions A list of options that will determine how Eos runs the app.
+ * @param {Function} runApp The function that will initiate the app.
+*/
+
+const schema = {
+    schema: "2.1.0",
+    name: this.name,
+    version: this.version,
+    manifest: this.manifest,
+    dependentFiles: [
+        this.dependentFiles
+    ],
+    runtimeOptions: {
+        esm: this.esm
+    },
+    runApp: async function (eos) {
+        this.runApp();
+    }
+};
+
+module.exports = schema;

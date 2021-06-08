@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+/**
+ * Name: structures/manifest
+ * Created: 8 June 2021 @ 16:40 BST (15:40 GMT)
+ * Author: Daniel Hyders <git@bean.codes>
+ * Licence: GNU GPLv3
+*/
+
+// CommonJS and ESM modules are supported.
+
+const schema = {
+    schemaVer: "1.1.0",
+    name: this.name,
+    version: this.version,
+    creators: {
+        author: {
+            name: this.author.name,
+            email: this.author.email,
+            website: this.author.website
+        },
+        contributors: [
+            {
+                name: this.contributors[0].name,
+                email: this.contributors[0].email,
+                website: this.contributors[0].website
+            }
+        ]
+    },
+    package: this.package,
+    autoRun: this.autoRun,
+    runtime: function () {
+        this.runtime();
+    }
+};
+
+export default schema;

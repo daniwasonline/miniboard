@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+/**
+ * Name: mod.d/core/manifest.o
+ * Created: 8 June 2021 @ 16:40 BST (15:40 GMT)
+ * Author: Daniel Hyders <git@bean.codes>
+ * Licence: GNU GPLv3
+*/
+
+// CommonJS and ESM modules are supported.
+
+import path from "path";
+
+const schema = {
+    schemaVer: "1.1.0",
+    name: "Miniboard Core Runtime",
+    version: "3.0.0",
+    creators: {
+        author: {
+            name: "Miniboard Core Maintainers <miniboard@services.bean.codes>",
+            email: "miniboard@services.bean.codes",
+            website: "https://github.com/Dannnington/miniboard"
+        },
+        contributors: [
+            {
+                name: "Daniel Hyders",
+                email: "git@bean.codes",
+                website: "https://www.bean.codes"
+            }
+        ]
+    },
+    package: path.join(__dirname + "/package.json"),
+    autoRun: true,
+    runtime: function () {
+        if (process.versions["electron"]) {
+            require(path.join(__dirname + "/electron.o"));
+        } if (!process.versions["electron"]) {
+            require(path.join(__dirname + "/node.o"));
+        };
+    }
+};
+
+export default schema;
