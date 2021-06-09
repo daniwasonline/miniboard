@@ -1,0 +1,93 @@
+#!/usr/bin/env node
+/**
+ * Name: mod.d/database/src/index.o
+ * Created: 8 June 2021 @ 23:40 BST (22:40 GMT)
+ * Author: Daniel Hyders <git@bean.codes>
+ * Licence: GNU GPLv3
+*/
+
+import express from "express";
+import pkg from "../package.json";
+import path from "path";
+import fs from "fs";
+import os from "os";
+import { logEvent } from "./lib/logger.o";
+import { deleteTable, createTable, saveTable, loadTable } from "./lib/fileOperations.o";
+import bodyParser from "body-parser";
+const lighthouse_path = path.join(os.homedir() + "/.lightbox_config");
+const app = express();
+
+if (!fs.existsSync(lighthouse_path)) {
+    fs.mkdirSync(lighthouse_path, { recursive: true });
+} if (!fs.existsSync(path.join(lighthouse_path + "/default.lh"))) {
+    fs.writeFileSync(path.join(lighthouse_path + "/default.lh"), `# This file was generated on ${new Date().toUTCString()}`);
+} if (!fs.existsSync(path.join(lighthouse_path + "/config.lh"))) {
+    fs.writeFileSync(path.join(lighthouse_path + "/config.lh"), `# This file was generated on ${new Date().toUTCString()}`);
+} if (!fs.existsSync(path.join(lighthouse_path + "/themes.lh"))) {
+    fs.writeFileSync(path.join(lighthouse_path + "/themes.lh"), `# This file was generated on ${new Date().toUTCString()}`);
+};
+
+process.lightboxdb = {};
+
+app.use(async function (req, res, next) {
+    if (req.url.startsWith("/set")) req.headers['content-type'] = "text/plain";
+    next();
+});
+app.use(bodyParser.text())
+
+
+app.get("/", async function (req, res, next) {
+    logEvent(`Request was sent to /`, "req");
+    res.status(200).send({ 
+        status: 200, 
+        response: {
+            name: "Lightbox Lighthouse, a YAML-based HTTP database server",
+            apiVersion: pkg.version,
+            routes: {
+                get: {
+                    route: "GET:/get/:table/:key",
+                    params: "If param :key is 'all', return entire table"
+                },
+                set: {
+                    route: "POST:/set/:table/:key",
+                    body: "The body is used as the database key's content."
+                }
+            }
+        }
+    });
+});
+
+app.get("/get/:table/:key", async function (req, res, next) {
+    const key = req.params.key;
+    const table = req.params.table;
+    try {
+        const _t = loadTable(table, lighthouse_path);
+        if (req.params.key == "all") return res.status(200).send({ status: 200, response: _t });
+        if (_t[key] == undefined) return res.status(404).send({ status: 404, response: "Key not found" });
+        res.status(200).send({ status: 200, response: _t[key] });
+        return logEvent(`Key ${key} was fetched from table ${table}`, "get");
+    } catch (e) {
+        return res.status(404).send({ status: 404, response: "Table not found" });
+    };
+});
+
+app.post("/set/:table/:key", async function (req, res, next) {
+    const key = req.params.key;
+    const table = req.params.table;
+    const body = req.body;
+    try {
+        var _t = loadTable(table, lighthouse_path);
+        if (!key) return res.status(404).send({ status: 404, response: "No key was specified" });
+        _t[key] = body;
+        saveTable(_t, table, lighthouse_path);
+        res.status(200).send({ status: 200, response: `'${body}' was sent to ${key} in ${table}` });
+        return logEvent(`Key ${key} was set in table ${table}`, "set");
+    } catch (e) {
+        console.log(e)
+        return res.status(404).send({ status: 404, response: "Table not found" });
+    };
+});
+
+const listener = app.listen(8551, async function () {
+    logEvent(`Lightbox Lighthouse listening on port ${listener.address().port}`, "init");
+});

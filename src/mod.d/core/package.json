@@ -1,0 +1,19 @@
+{
+  "name": "lightbox-core",
+  "version": "3.0.0",
+  "description": "The core module for Lightbox",
+  "main": "manifest.o",
+  "repository": "https://github.com/Dannnington/miniboard",
+  "author": "Lightbox Core Maintainers",
+  "license": "GPL-3.0-or-later",
+  "private": false,
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1",
+    "ejs": "^3.1.6"
+  },
+  "devDependencies": {
+    "electron": "^13.1.1",
+    "electron-builder": "^22.10.5"
+  }
+}

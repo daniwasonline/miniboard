@@ -1,38 +1,44 @@
 {
-  "name": "miniboard",
-  "version": "3.0.0",
-  "description": "An Electron-based 'screensaver' dashboard.",
-  "main": "main.js",
-  "repository": "https://github.com/Dannnington/miniboard.git",
-  "author": {
-      "name": "Miniboard Core Maintainers <miniboard@services.bean.codes>",
-      "email": "miniboard@services.bean.codes",
-      "url": "https://github.com/Dannnington/miniboard."
-  },
-  "contributors": [
-      {
-          "name": "Daniel Hyders <git@bean.codes>",
-          "email": "git@bean.codes",
-          "url": "https://www.bean.codes"
-      },
-      {
-          "name": "Bren",
-          "email": "lol@no.com",
-          "url": "https://twitter.com/WoaItsBren"
-      }
-  ],
-  "license": "GPL-3.0-or-later",
-  "private": false,
-  "scripts": {
-      "install": "cd eos_runtime && npx yarn install"
-  },
-  "dependencies": {
-      "chalk": "^4.1.1",
-      "esm": "^3.2.25",
-      "get-caller-file": "^2.0.5",
-      "node-fetch": "^2.6.1"
-  },
-  "devDependencies": {
-      "electron": "^11.1.1"
-  }
+    "name": "lightbox",
+    "version": "3.0.0",
+    "description": "A dashboard solution written with Express.js and Electron",
+    "main": "main.js",
+    "repository": "https://github.com/Dannnington/miniboard.git",
+    "author": {
+        "name": "Lightbox Core Maintainers <lightbox@services.bean.codes>",
+        "email": "lightbox@services.bean.codes",
+        "url": "https://github.com/Dannnington/miniboard.git"
+    },
+    "contributors": [
+        {
+            "name": "Daniel Hyders <git@bean.codes>",
+            "email": "git@bean.codes",
+            "url": "https://www.bean.codes"
+        },
+        {
+            "name": "Bren",
+            "email": "lol@no.com",
+            "url": "https://twitter.com/WoaItsBren"
+        },
+        {
+            "name": "Callum <cxllm@outlook.fr>",
+            "email": "cxllm@outlook.fr",
+            "url": "https://www.cxllm.xyz"
+        }
+    ],
+    "license": "GPL-3.0-or-later",
+    "private": false,
+    "scripts": {
+        "install": "cd eos_runtime && npx yarn install"
+    },
+    "dependencies": {
+        "chalk": "^4.1.1",
+        "esm": "^3.2.25",
+        "get-caller-file": "^2.0.5",
+        "node-fetch": "^2.6.1",
+        "install-packages": "lightbox-dev/install-packages"
+    },
+    "devDependencies": {
+        "electron": "^11.1.1"
+    }
 }

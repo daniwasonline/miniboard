@@ -84,6 +84,7 @@ async function runtime() {
     });
     process.stdout.write("\nRunning app's initialisation script..\n");
     process.eosRunning = true;
+    console.clear();
     configuration.runApp(eosFunctions);
 };
 

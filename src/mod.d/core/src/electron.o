@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Name: mod.d/core/node.o
+ * Name: mod.d/core/src/electron.o
  * Created: 8 June 2021 @ 17:30 BST (16:30 GMT)
  * Author: Daniel Hyders <git@bean.codes>
  * Licence: GNU GPLv3
