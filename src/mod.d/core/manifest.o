@@ -9,6 +9,7 @@
 // CommonJS and ESM modules are supported.
 
 import path from "path";
+import { importModule } from "../lib/import.o";
 
 const schema = {
     schemaVer: "1.1.0",
@@ -30,7 +31,8 @@ const schema = {
     },
     package: path.join(__dirname + "/package.json"),
     autoRun: true,
-    runtime: function () {
+    runtime: async function () {
+        await importModule("database");
         if (process.versions["electron"]) {
             require(path.join(__dirname + "/src/electron.o"));
         } if (!process.versions["electron"]) {

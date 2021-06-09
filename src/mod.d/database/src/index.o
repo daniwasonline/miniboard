@@ -13,6 +13,7 @@ import fs from "fs";
 import os from "os";
 import { logEvent } from "./lib/logger.o";
 import { deleteTable, createTable, saveTable, loadTable } from "./lib/fileOperations.o";
+import Lighthouse from "./lib/exposedClass.o";
 import bodyParser from "body-parser";
 const lighthouse_path = path.join(os.homedir() + "/.lightbox_config");
 const app = express();
@@ -26,8 +27,6 @@ if (!fs.existsSync(lighthouse_path)) {
 } if (!fs.existsSync(path.join(lighthouse_path + "/themes.lh"))) {
     fs.writeFileSync(path.join(lighthouse_path + "/themes.lh"), `# This file was generated on ${new Date().toUTCString()}`);
 };
-
-process.lightboxdb = {};
 
 app.use(async function (req, res, next) {
     if (req.url.startsWith("/set")) req.headers['content-type'] = "text/plain";
@@ -57,6 +56,10 @@ app.get("/", async function (req, res, next) {
     });
 });
 
+app.get("/check", async function (req, res, next) {
+    res.status(200).send({ status: 200, response: "Lighthouse online" });
+});
+
 app.get("/get/:table/:key", async function (req, res, next) {
     const key = req.params.key;
     const table = req.params.table;
@@ -71,14 +74,21 @@ app.get("/get/:table/:key", async function (req, res, next) {
     };
 });
 
-app.post("/set/:table/:key", async function (req, res, next) {
+app.put("/set/:table/:key", async function (req, res, next) {
     const key = req.params.key;
     const table = req.params.table;
-    const body = req.body;
+    var body = req.body;
     try {
         var _t = loadTable(table, lighthouse_path);
         if (!key) return res.status(404).send({ status: 404, response: "No key was specified" });
-        _t[key] = body;
+        if (!body || body.trim() == "") {
+            delete _t[key];
+            saveTable(_t, table, lighthouse_path);
+            res.status(200).send({ status: 200, response: `'${key} in ${table} was deleted` });
+            return logEvent(`Key ${key} was deleted in table ${table}`, "set");
+        } else {
+            _t[key] = body;
+        };
         saveTable(_t, table, lighthouse_path);
         res.status(200).send({ status: 200, response: `'${body}' was sent to ${key} in ${table}` });
         return logEvent(`Key ${key} was set in table ${table}`, "set");
@@ -88,6 +98,26 @@ app.post("/set/:table/:key", async function (req, res, next) {
     };
 });
 
-const listener = app.listen(8551, async function () {
+app.post("/create/table/:table", async function (req, res, next) {
+    const table = req.params.table;
+    try {
+        createTable(table, lighthouse_path);
+        return res.status(200).send({ status: 200, response: `Table ${table} was created` });
+    } catch (e) {
+        return res.status(403).send({ status: 403, response: `Table ${table} already exists` });
+    };
+});
+
+app.delete("/delete/table/:table", async function (req, res, next) {
+    const table = req.params.table;
+    try {
+        deleteTable(table, lighthouse_path);
+        return res.status(200).send({ status: 200, response: `Table ${table} was deleted` });
+    } catch (e) {
+        return res.status(403).send({ status: 403, response: `Table ${table} does not exist` });
+    };
+}); 
+
+const listener = app.listen(process.lightboxdbconf.port, "127.0.0.1", async function () {
     logEvent(`Lightbox Lighthouse listening on port ${listener.address().port}`, "init");
 });

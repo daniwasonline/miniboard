@@ -12,7 +12,7 @@ import path from "path";
 
 const schema = {
     schemaVer: "1.1.0",
-    name: "Lightbox Lighthouse Database",
+    name: "LighthouseDB",
     version: "3.0.0",
     creators: {
         author: {
@@ -29,7 +29,7 @@ const schema = {
         ]
     },
     package: path.join(__dirname + "/package.json"),
-    autoRun: true,
+    autoRun: false,
     runtime: function () {
         require(__dirname + "/src/index.o");
     }

@@ -19,25 +19,25 @@ async function logEvent(content, type) {
     
     switch (type) {
         case "init":
-            var str = `${chalk["blue"].bold("LDB")}${process.addWhitespace(1)}${chalk.yellow("[INIT]")} ${chalk.blue(content)}`;
+            var str = `${chalk["blue"].bold("LLH")}${process.addWhitespace(1)}${chalk.yellow("[INIT]")} ${chalk.blue(content)}`;
             console.log(str);
             return str;
             break;
 
         case "get":
-            str = `${chalk["blue"].bold("LDB")}${process.addWhitespace(1)}${chalk.green("[GET]")} ${chalk.blue(content)}`;
+            str = `${chalk["blue"].bold("LLH")}${process.addWhitespace(1)}${chalk.green("[GET]")} ${chalk.blue(content)}`;
             console.log(str);
             return str;
             break;
 
         case "set":
-            str = `${chalk["blue"].bold("LDB")}${process.addWhitespace(1)}${chalk.cyan("[REQ]")} ${chalk.blue(content)}`;
+            str = `${chalk["blue"].bold("LLH")}${process.addWhitespace(1)}${chalk.cyan("[REQ]")} ${chalk.blue(content)}`;
             console.log(str);
             return str;
             break;
 
         case "req":
-            str = `${chalk["blue"].bold("LDB")}${process.addWhitespace(1)}${chalk.yellow("[REQ]")} ${chalk.blue(content)}`;
+            str = `${chalk["blue"].bold("LLH")}${process.addWhitespace(1)}${chalk.yellow("[REQ]")} ${chalk.blue(content)}`;
             console.log(str);
             return str;
             break;

@@ -9,8 +9,13 @@
 import fs from "fs";
 import path from "path";
 import chalk from "chalk";
+import os from "os";
 import { initLogger, addWhitespace } from "./lib/log";
 import { installDeps } from "./lib/core";
+
+process.lightboxdbconf = {};
+process.lightboxdbconf.path = path.join(os.homedir() + "/.lightbox_config");
+process.lightboxdbconf.port = 8551;
 
 (async function () {
     if (!fs.existsSync(path.join(__dirname + "/mod.d"))) {
@@ -19,9 +24,10 @@ import { installDeps } from "./lib/core";
     };
 
     if (fs.existsSync(path.join(__dirname + "/mod.d"))) {
-        const modDirs = fs.readdirSync(path.join(__dirname, `/mod.d/`), { withFileTypes: true }).filter(ent => ent.isDirectory());
+        const md = fs.readdirSync(path.join(__dirname, `/mod.d/`), { withFileTypes: true }).filter(ent => ent.isDirectory());
         process.addWhitespace = addWhitespace;
         let modsInt = 0;
+        const modDirs = md.filter(m => m.name !== "lib");
         if (modDirs.length == 0) {
             console.log(initLogger(`${chalk.cyan("CORE")} No modules were found in src/mod.d. Please install the necessary core MCR modules to run, or re-install Lightbox.`, "error"));
             process.exit(2);
@@ -30,17 +36,20 @@ import { installDeps } from "./lib/core";
             await installDeps(modDirs, path.join(__dirname + `/mod.d`));
             console.log(initLogger(`${modDirs.length} modules were found. Loading modules..`, "init"));
             for (const modDirRaw of modDirs) {
-                const modsDir = fs.readdirSync(path.join(__dirname, `/mod.d/${modDirRaw.name}`)).filter(ent => ent == "manifest.o");
-                for (const fi of modsDir) {
-                    const lightboxModule = require(path.join(__dirname + `/mod.d/${modDirRaw.name}/${fi}`)).default;
-                    if (lightboxModule.autoLoad !== false) {
+                if (modDirRaw.name !== "lib") {
+                    const modsDir = fs.readdirSync(path.join(__dirname, `/mod.d/${modDirRaw.name}`)).filter(ent => ent == "manifest.o");
+                    for (const fi of modsDir) {
                         modsInt++;
-                        console.log(initLogger(`${lightboxModule.name} (Module ${modsInt}/${modDirs.length})`, "loading"));
-                        try {
-                            lightboxModule.runtime();
-                            console.log(initLogger(`${lightboxModule.name} (Module ${modsInt}/${modDirs.length})`, "success"));
-                        } catch(e) {
-                            console.log(initLogger(`${lightboxModule.name} (Module ${modsInt}/${modDirs.length}):\n${chalk.red(e.stack.trim())}`, "error"));
+                        const lightboxModule = require(path.join(__dirname + `/mod.d/${modDirRaw.name}/${fi}`)).default;
+                        if (lightboxModule.autoRun == false) return console.log(initLogger(`${lightboxModule.name} is disabled on start up, skipping.. (Module ${modsInt}/${modDirs.length})`, "init"))
+                        if (lightboxModule.autoRun !== false) {
+                            console.log(initLogger(`${lightboxModule.name} (Module ${modsInt}/${modDirs.length})`, "loading"));
+                            try {
+                                lightboxModule.runtime();
+                                console.log(initLogger(`${lightboxModule.name} (Module ${modsInt}/${modDirs.length})`, "success"));
+                            } catch(e) {
+                                console.log(initLogger(`${lightboxModule.name} (Module ${modsInt}/${modDirs.length}):\n${chalk.red(e.stack.trim())}`, "error"));
+                            };
                         };
                     };
                 };

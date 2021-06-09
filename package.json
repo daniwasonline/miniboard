@@ -2,7 +2,7 @@
     "name": "lightbox",
     "version": "3.0.0",
     "description": "A dashboard solution written with Express.js and Electron",
-    "main": "main.js",
+    "main": "index.js",
     "repository": "https://github.com/Dannnington/miniboard.git",
     "author": {
         "name": "Lightbox Core Maintainers <lightbox@services.bean.codes>",

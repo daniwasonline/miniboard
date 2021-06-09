@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+/**
+ * Name: mod.d/core/src/routers/firstRun.route
+ * Created: 9 June 2021 @ 22:00 BST (21:00 GMT)
+ * Author: Daniel Hyders <git@bean.codes>
+ * Licence: GNU GPLv3
+*/
+
+import express from "express";
+const app = express.Router();
+
+app.get("/", async function (req, res, next) {
+    res.render("index");
+});
+
+export default app;

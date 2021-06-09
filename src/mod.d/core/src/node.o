@@ -8,16 +8,27 @@
 
 import express from "express";
 import path from "path";
-import { logEvent } from "./lib/logger.o.js";
+import { logEvent } from "./lib/logger.o";
+import { checkForFirstStart } from "./lib/configuration.o";
+import Lighthouse from "./lib/exposedClass.o";
+import normalRouter from "./routers/normal.route";
+import firstRunRouter from "./routers/firstRun.route";
 const app = express();
+const LighthouseConfig = new Lighthouse("config");
 
-app.set("view engine", "ejs");
-//lightbox.app.set("views", path.join(__dirname + `/../../templates/${lightbox}`));
+(async function () {
+    app.set("view engine", "ejs");
+    const firstRun = await checkForFirstStart();
 
-app.get("/", async function (req, res, next) {
-    res.status(200).render()
-});
+    if (firstRun == false) {
+        app.set("views", path.join(__dirname + `/../../../templates/${await LighthouseConfig.get("current")}`));
+        app.use("/", normalRouter);
+    } if (firstRun == true) {
+        app.set("views", path.join(__dirname + `/../../../templates/firstRun`));
+        app.use("/", firstRunRouter);
+    };
 
-const listener = app.listen(8550, async function () {
-    logEvent(`Lightbox Core Runtime listening on port ${listener.address().port}`, "init");
-});
+    const listener = app.listen(8550, async function () {
+        logEvent(`Lightbox Core Runtime listening on port ${listener.address().port}`, "init");
+    });
+})();
