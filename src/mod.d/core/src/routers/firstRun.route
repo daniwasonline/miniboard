@@ -7,10 +7,24 @@
 */
 
 import express from "express";
+import lhDb from "../lib/exposedClass.o";
+import isThisLocalhost from "../lib/isThisLocalhost.o";
+import path from "path";
+import localIp from "ip";
+
+const LighthouseConfig = new lhDb("config");
+const LighthouseTheme = new lhDb("themes");
+const Lighthouse = new lhDb("default");
 const app = express.Router();
 
+app.use("/static", express.static(path.join(__dirname + `/../../../../templates/firstRun/static`)))
+
 app.get("/", async function (req, res, next) {
-    res.render("index");
+    if (isThisLocalhost(req)) { 
+        res.render("server", { ip: localIp.address() });
+    } if (!isThisLocalhost(req)) {
+        res.send("Example remote destination response")
+    };
 });
 
 export default app;
