@@ -61,5 +61,5 @@
             "authTokens": ["Token1", "Token2"]
         }
     }
-    "process_manager": false
+    ,"process_manager": false
 }
