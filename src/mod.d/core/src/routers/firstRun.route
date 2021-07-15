@@ -23,7 +23,7 @@ app.get("/", async function (req, res, next) {
     if (isThisLocalhost(req)) { 
         res.render("server", { ip: localIp.address() });
     } if (!isThisLocalhost(req)) {
-        res.send("Example remote destination response")
+        res.render("index", { ip: localIp.address() });
     };
 });
 

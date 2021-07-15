@@ -7,7 +7,12 @@
         <center>
             <img class="load" src="/static/img/LightboxSpin.gif" length="256px" height="256px">
             <h1 class="header main-header centre">Lightbox</h1>
-            <h3 class="body centre">To set up Lightbox, please access this page from another device, or access Lightbox from this address:<br><%= ip %>:8550</h3>
+            <h3 class="body centre">To set up Lightbox, please access the following webpage in your browser (or on another device connected to your network):<br><%= ip %>:8550</h3>
         </center>
+        <script>
+            setTimeout(function () {
+                location.reload();
+            }, 2500);
+        </script>
     </body>
 </html>
